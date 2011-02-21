@@ -1,33 +1,32 @@
-var s,
-    sys = require('sys'),
+var sys = require('sys'),
+    fs = require('fs'),
     cli = require('./../lib/cli');
 
-module.exports = require('nodeunit').testCase({
+describe("cli", function () {
 
-    setUp: function (done) {
-        s = require('sinon').sandbox.create();
-        done();
-    },
-
-    tearDown: function (done) {
-        s.verifyAndRestore();
-        done();
-    },
-
-    "interprets --help with no args": function (test) {
+    it("interprets --help with no args", function () {
         var txt = require('fs').readFileSync(__dirname + "/../HELP", "utf-8");
-        s.mock(sys).expects("print").once().withExactArgs(txt);
-        s.stub(process, "exit");
+        spyOn(sys, "print");
         cli.interpret(["node", "file.js"]);
-        test.done();
-    },
+        expect(sys.print.mostRecentCall.args[0]).toEqual(txt);
+    });
 
-    "interprets --help": function (test) {
+    it("interprets --help", function () {
         var txt = require('fs').readFileSync(__dirname + "/../HELP", "utf-8");
-        s.mock(sys).expects("print").once().withExactArgs(txt);
-        s.stub(process, "exit");
+        spyOn(sys, "print");
         cli.interpret(["node", "file.js", "--help"]);
-        test.done();
-    }
+        expect(sys.print.mostRecentCall.args[0]).toEqual(txt);
+    });
+
+    it("interprets --config", function () {
+        spyOn(fs, "readFileSync").andReturn("data");
+        spyOn(JSON, "parse");
+        cli.interpret(["node", "file.js", "--config", "file.json"]);
+        expect(fs.readFileSync).toHaveBeenCalledWith("file.json", "utf-8");
+        expect(JSON.parse).toHaveBeenCalledWith("data");
+    });
+
+    // TODO: interprets --reporter
+    // TODO: handles config file open error
 
 });

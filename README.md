@@ -16,7 +16,7 @@ A command line interface for jshint.
 
 ## Running Tests
 
-    npm install sinon nodeunit
+    npm install jasmine-node
 
 ## Jake Commands
 
@@ -28,5 +28,4 @@ A command line interface for jshint.
 
 # TODO
 
-* move bulk of code in cli to a separate module and put under test (tdd fail)
 * add custom reporters
