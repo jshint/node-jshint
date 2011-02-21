@@ -1,0 +1,5 @@
+Usage: node-hint path path2 [options]
+
+Options:
+
+   --config        custom config file

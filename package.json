@@ -1,0 +1,27 @@
+{
+  "name": "node-hint",
+  "version": "0.1.0",
+  "description": "jshint as a npm package + cli",
+  "homepage": "http://github.com/brentlintner/node-hint",
+  "author": {
+    "name": "Brent Lintner",
+    "email": "brent.lintner@gmail.com",
+    "url": "http://github.com/brentlintner"
+  },
+  "licenses": [{
+    "type": "MIT",
+    "url": "http://www.opensource.org/licenses/mit-license.php"
+  }],
+  "bin": "./bin/node-hint",
+  "main": "./lib",
+  "files": [
+    "packages/jshint/README.markdown",
+    "packages/jshint/jshint.js",
+    "README.md",
+    "LICENSE",
+    "HELP"
+  ],
+  "dependencies": {
+    "argsparser": ">=0.0.3"
+  }
+}
