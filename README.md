@@ -1,22 +1,35 @@
 # node-hint
 
-A command line interface for jshint.
+A command line interface for jshint, with inspiration from nodelint (github.com/tav/nodelint).
 
 ## Install
 
     npm install node-hint
 
-## Using
+    node-hint
+
+## Usage
 
     node-hint path path2 [options]
 
 ## Options
 
+see example/
+
+    // custom options
     --config path/to/config.json
+
+    // custom reporter
+    --reporter path/to/reporter.js
 
 ## Running Tests
 
+    git submodule init
+    git submodule update
+
     npm install jasmine-node
+
+    jake test
 
 ## Jake Commands
 
@@ -25,7 +38,3 @@ A command line interface for jshint.
 
     // run jshint
     jake lint
-
-# TODO
-
-* add custom reporters
