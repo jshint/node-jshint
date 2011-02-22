@@ -1,6 +1,6 @@
 {
   "name": "node-hint",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "jshint as a npm package + cli",
   "homepage": "http://github.com/brentlintner/node-hint",
   "author": {
