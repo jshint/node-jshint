@@ -1,16 +1,16 @@
-# node-hint
+# node-jshint
 
 A command line interface for jshint, with inspiration from nodelint (github.com/tav/nodelint).
 
 ## Install
 
-    npm install node-hint
+    npm install node-jshint
 
-    node-hint
+    node-jshint
 
 ## Usage
 
-    node-hint path path2 [options]
+    node-jshint path path2 [options]
 
 ## Options
 

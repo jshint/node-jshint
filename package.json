@@ -1,18 +1,23 @@
 {
-  "name": "node-hint",
+  "name": "node-jshint",
   "version": "0.1.1",
-  "description": "jshint as a npm package + cli",
-  "homepage": "http://github.com/brentlintner/node-hint",
+  "description": "a cli for jshint",
+  "homepage": "http://github.com/jshint/node-jshint",
   "author": {
     "name": "Brent Lintner",
     "email": "brent.lintner@gmail.com",
     "url": "http://github.com/brentlintner"
   },
+  "contributors": [{
+    "name": "Brent Lintner",
+    "email": "brent.lintner@gmail.com",
+    "url": "http://github.com/brentlintner"
+  }],
   "licenses": [{
     "type": "MIT",
     "url": "http://www.opensource.org/licenses/mit-license.php"
   }],
-  "bin": "./bin/node-hint",
+  "bin": "./bin/node-jshint",
   "main": "./lib",
   "files": [
     "packages/jshint/README.markdown",
