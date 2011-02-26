@@ -4,13 +4,11 @@ A command line interface for jshint, with inspiration from nodelint (github.com/
 
 ## Install
 
-    npm install node-jshint
-
-    node-jshint
+    npm install jshint
 
 ## Usage
 
-    node-jshint path path2 [options]
+    jshint path path2 [options]
 
 ## Options
 

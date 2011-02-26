@@ -1,6 +1,6 @@
 {
-  "name": "node-jshint",
-  "version": "0.1.2",
+  "name": "jshint",
+  "version": "0.1.3",
   "description": "a cli for jshint",
   "homepage": "http://github.com/jshint/node-jshint",
   "author": {
@@ -12,12 +12,15 @@
     "name": "Brent Lintner",
     "email": "brent.lintner@gmail.com",
     "url": "http://github.com/brentlintner"
+  },{
+    "name": "Marco Rogers",
+    "url": "https://github.com/polotek"
   }],
   "licenses": [{
     "type": "MIT",
     "url": "http://www.opensource.org/licenses/mit-license.php"
   }],
-  "bin": "./bin/node-jshint",
+  "bin": "./bin/jshint",
   "main": "./packages/jshint/jshint",
   "files": [
     "packages/jshint/README.markdown",

@@ -1,4 +1,4 @@
-Usage: node-jshint path path2 [options]
+Usage: jshint path path2 [options]
 
 Options:
 
