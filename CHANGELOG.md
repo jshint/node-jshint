@@ -1,3 +1,7 @@
+## v0.1.4 - 01/03/2010
+
+* updated JSHint to 2011-03-01 edition (7c4d2acec850beceff8b)
+
 ## v0.1.3 - 26/02/2010
 
 * enable require('jshint') when installed through npm
