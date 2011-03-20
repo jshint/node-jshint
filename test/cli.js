@@ -55,6 +55,13 @@ describe("cli", function () {
         expect(hint.hint.mostRecentCall.args[2].toString()).toEqual(reporter);
     });
 
-    // TODO: handles config file open error
+    it("looks for a default config when no custom config is specified", function () {
+        var config = {prefdef: []},
+            path = require('path');
+
+        spyOn(fs, "readFileSync").andReturn(JSON.stringify(config));
+        cli.interpret(["node", "file.js", "file.js"]);
+        expect(fs.readFileSync).toHaveBeenCalledWith(path.join(process.env.HOME, '.jshintrc'), "utf-8");
+    });
 
 });

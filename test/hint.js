@@ -5,17 +5,21 @@ var sys = require('sys'),
 
 describe("hint", function () {
 
+    beforeEach(function () {
+        spyOn(sys, "puts");
+        spyOn(process, "exit");
+    });
+
     it("collects files", function () {
         var targets = ["file1.js", "file2.js", ".hidden"];
 
-        spyOn(sys, "puts");
         spyOn(jshint, "JSHINT").andReturn(true);
         spyOn(fs, "readFileSync").andReturn("data");
 
         spyOn(fs, "statSync").andReturn({
             isDirectory: jasmine.createSpy().andReturn(false)
         });
-        
+
         hint.hint(targets);
 
         expect(fs.readFileSync.callCount).toEqual(2);
@@ -27,7 +31,6 @@ describe("hint", function () {
     it("collects directory files", function () {
         var targets = ["dir", "file2.js"];
 
-        spyOn(sys, "puts");
         spyOn(jshint, "JSHINT").andReturn(true);
 
         spyOn(fs, "readFileSync").andReturn("data");
@@ -40,7 +43,7 @@ describe("hint", function () {
                 }
             };
         });
-        
+
         hint.hint(targets);
 
         expect(fs.readFileSync.callCount).toEqual(2);
@@ -58,14 +61,13 @@ describe("hint", function () {
         var targets = ["file1.js"],
             config = {};
 
-        spyOn(sys, "puts");
         spyOn(jshint, "JSHINT").andReturn(true);
         spyOn(fs, "readFileSync").andReturn("data");
 
         spyOn(fs, "statSync").andReturn({
             isDirectory: jasmine.createSpy().andReturn(false)
         });
-        
+
         hint.hint(targets, config);
 
         expect(jshint.JSHINT).toHaveBeenCalledWith("data", config);
@@ -74,14 +76,13 @@ describe("hint", function () {
     it("removes shebangs", function () {
         var targets = ["file1.js"];
 
-        spyOn(sys, "puts");
         spyOn(jshint, "JSHINT").andReturn(true);
         spyOn(fs, "readFileSync").andReturn("#! /usr/bin/env node\nvar a;");
 
         spyOn(fs, "statSync").andReturn({
             isDirectory: jasmine.createSpy().andReturn(false)
         });
-        
+
         hint.hint(targets);
 
         expect(jshint.JSHINT).toHaveBeenCalledWith("var a;", null);
@@ -92,17 +93,55 @@ describe("hint", function () {
             config = null,
             reporter = jasmine.createSpy("reporter");
 
-        spyOn(sys, "puts");
         spyOn(jshint, "JSHINT").andReturn(true);
         spyOn(fs, "readFileSync").andReturn("data");
 
         spyOn(fs, "statSync").andReturn({
             isDirectory: jasmine.createSpy("isDirectory").andReturn(false)
         });
-        
+
         hint.hint(targets, config, reporter);
 
         expect(reporter).toHaveBeenCalled();
+    });
+
+    it("exits the process with a successful status code with no lint errors", function () {
+        var targets = ["file1.js"];
+
+        spyOn(jshint, "JSHINT").andReturn(true);
+        spyOn(fs, "readFileSync").andReturn("data");
+
+        spyOn(fs, "statSync").andReturn({
+            isDirectory: jasmine.createSpy().andReturn(false)
+        });
+
+        hint.hint(targets);
+
+        expect(process.exit).toHaveBeenCalledWith(0);
+    });
+
+    it("exits the process with a failed status code when there are lint errors", function () {
+        var targets = ["file1.js"],
+            results = [{
+                file: "file1.js",
+                error: {
+                    line: "1",
+                    reason: "",
+                    character: "4"
+                }
+            }];
+
+        spyOn(jshint, "JSHINT").andReturn(false);
+        jshint.JSHINT.errors = results;
+        spyOn(fs, "readFileSync").andReturn("data");
+
+        spyOn(fs, "statSync").andReturn({
+            isDirectory: jasmine.createSpy().andReturn(false)
+        });
+
+        hint.hint(targets);
+
+        expect(process.exit).toHaveBeenCalledWith(1);
     });
 
     // TODO: handles jshint errors (will tighten custom reporter assertions)

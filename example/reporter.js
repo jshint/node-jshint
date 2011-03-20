@@ -12,4 +12,5 @@ function reporter(results) {
     });
 
     sys.puts(len > 0 ? (str + "\n" + len + ' error' + ((len === 1) ? '' : 's')) : "Lint Free!");
+    process.exit(leng > 0 ? 1 : 0);
 }
