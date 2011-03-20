@@ -2,5 +2,6 @@ Usage: jshint path path2 [options]
 
 Options:
 
+   --version       display package version
    --config        custom config file
    --reporter      custom reporter

@@ -64,4 +64,15 @@ describe("cli", function () {
         expect(fs.readFileSync).toHaveBeenCalledWith(path.join(process.env.HOME, '.jshintrc'), "utf-8");
     });
 
+    it("interprets --version and logs the current package version", function () {
+        var package = {version: 1};
+
+        spyOn(sys, "print");
+        spyOn(fs, "readFileSync").andReturn(JSON.stringify(package));
+
+        cli.interpret(["node", "file.js", "--version"]);
+
+        expect(sys.print.mostRecentCall.args[0]).toEqual(package.version + "\n");
+    });
+
 });
