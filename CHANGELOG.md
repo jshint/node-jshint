@@ -1,3 +1,9 @@
+## v0.1.5 - 20/03/2010
+
+* exit process with appropriate status code after lint
+* use ~/.jshintrc as default options if available
+* added --version option
+
 ## v0.1.4 - 01/03/2010
 
 * updated JSHint to 2011-03-01 edition (7c4d2acec850beceff8b)
