@@ -1,3 +1,7 @@
+## v0.1.6 - 21/03/2010
+
+* removed bin property in package.json
+
 ## v0.1.5 - 20/03/2010
 
 * exit process with appropriate status code after lint
