@@ -1,6 +1,6 @@
 {
   "name": "jshint",
-  "version": "0.1.5",
+  "version": "0.1.6",
   "description": "a cli for jshint",
   "homepage": "http://github.com/jshint/node-jshint",
   "author": {
@@ -20,7 +20,6 @@
     "type": "MIT",
     "url": "http://www.opensource.org/licenses/mit-license.php"
   }],
-  "bin": "./bin/jshint",
   "main": "./packages/jshint/jshint",
   "files": [
     "packages/jshint/README.markdown",
