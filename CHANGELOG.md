@@ -1,3 +1,7 @@
+## v0.1.7 - 23/03/2010
+
+* fixed line number reporting being off by one when file has a shebang
+
 ## v0.1.6 - 21/03/2010
 
 * removed bin property in package.json
