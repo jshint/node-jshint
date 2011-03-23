@@ -65,14 +65,14 @@ describe("cli", function () {
     });
 
     it("interprets --version and logs the current package version", function () {
-        var package = {version: 1};
+        var data = {version: 1};
 
         spyOn(sys, "print");
-        spyOn(fs, "readFileSync").andReturn(JSON.stringify(package));
+        spyOn(fs, "readFileSync").andReturn(JSON.stringify(data));
 
         cli.interpret(["node", "file.js", "--version"]);
 
-        expect(sys.print.mostRecentCall.args[0]).toEqual(package.version + "\n");
+        expect(sys.print.mostRecentCall.args[0]).toEqual(data.version + "\n");
     });
 
 });

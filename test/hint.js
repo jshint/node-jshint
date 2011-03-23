@@ -85,7 +85,7 @@ describe("hint", function () {
 
         hint.hint(targets);
 
-        expect(jshint.JSHINT).toHaveBeenCalledWith("var a;", null);
+        expect(jshint.JSHINT).toHaveBeenCalledWith("\nvar a;", null);
     });
 
     it("uses custom reporter", function () {
