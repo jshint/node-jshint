@@ -73,21 +73,6 @@ describe("hint", function () {
         expect(jshint.JSHINT).toHaveBeenCalledWith("data", config);
     });
 
-    it("removes shebangs", function () {
-        var targets = ["file1.js"];
-
-        spyOn(jshint, "JSHINT").andReturn(true);
-        spyOn(fs, "readFileSync").andReturn("#! /usr/bin/env node\nvar a;");
-
-        spyOn(fs, "statSync").andReturn({
-            isDirectory: jasmine.createSpy().andReturn(false)
-        });
-
-        hint.hint(targets);
-
-        expect(jshint.JSHINT).toHaveBeenCalledWith("\nvar a;", null);
-    });
-
     it("uses custom reporter", function () {
         var targets = ["file1.js"],
             config = null,
