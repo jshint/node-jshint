@@ -1,3 +1,8 @@
+## v0.1.8 - 27/03/2010
+
+* jshint already removes shebangs itself
+* added a jslint compatible xml output formatter option
+
 ## v0.1.7 - 23/03/2010
 
 * fixed line number reporting being off by one when file has a shebang
