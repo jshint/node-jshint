@@ -8,14 +8,6 @@
     "email": "brent.lintner@gmail.com",
     "url": "http://github.com/brentlintner"
   },
-  "contributors": [{
-    "name": "Brent Lintner",
-    "email": "brent.lintner@gmail.com",
-    "url": "http://github.com/brentlintner"
-  },{
-    "name": "Marco Rogers",
-    "url": "https://github.com/polotek"
-  }],
   "licenses": [{
     "type": "MIT",
     "url": "http://www.opensource.org/licenses/mit-license.php"
