@@ -20,6 +20,9 @@ see example/
     // custom reporter
     --reporter path/to/reporter.js
 
+    // use a jslint compatible xml reporter
+    --jslint-reporter
+
 ## Default Options
 
 The cli uses the default options that come with jshint, however if it locates a .jshintrc file in your home (~/) directory it will opt for that.

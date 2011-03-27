@@ -75,4 +75,14 @@ describe("cli", function () {
         expect(sys.print.mostRecentCall.args[0]).toEqual(data.version + "\n");
     });
 
+    it("interprets --jslint-reporter and uses the jslint xml reporter", function () {
+        var reporter = "function reporter() {}";
+        spyOn(fs, "readFileSync").andReturn(reporter);
+
+        cli.interpret(["node", "file.js", "file.js", "--jslint-reporter"]);
+
+        expect(fs.readFileSync.mostRecentCall.args[0]).toEqual(__dirname.replace(/test$/, '') + "lib/jslint_reporter.js");
+        expect(hint.hint.mostRecentCall.args[2].toString()).toEqual(reporter);
+    });
+
 });
