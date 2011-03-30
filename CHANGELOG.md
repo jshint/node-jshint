@@ -1,3 +1,7 @@
+## v0.1.9 - 29/03/2010
+
+* remove ./ from file name in jslint xml reporter
+
 ## v0.1.8 - 27/03/2010
 
 * jshint already removes shebangs itself
