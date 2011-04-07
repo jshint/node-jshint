@@ -62,6 +62,25 @@ describe("cli", function () {
         expect(fs.readFileSync).toHaveBeenCalledWith(path.join(process.env.HOME, '.jshintrc'), "utf-8");
     });
 
+    it("looks for a project specific config file", function () {
+        var config = {prefdef: []},
+            path = require('path');
+
+        spyOn(fs, "readFileSync").andReturn(JSON.stringify(config));
+        cli.interpret(["node", "file.js", "file.js"]);
+        expect(fs.readFileSync).toHaveBeenCalledWith(path.join(process.cwd(), '.jshintrc'), "utf-8");
+    });
+
+    it("overrides options from the $HOME .jshintrc file with options from the cwd .jshintrc file", function() {
+        var config = '{"evil": true,"predef":["Monkeys","Elephants"]}';
+        fs.writeFileSync('.jshintrc', config, "utf-8");
+        cli.interpret(["node", "file.js", "file.js"]);
+        expect(hint.hint.mostRecentCall.args[1].predef).toContain("Monkeys");
+        expect(hint.hint.mostRecentCall.args[1].predef).toContain("Elephants");
+        expect(hint.hint.mostRecentCall.args[1].evil).toEqual(true);
+        fs.unlinkSync('.jshintrc');
+    });
+
     it("interprets --version and logs the current package version", function () {
         var data = {version: 1};
 
