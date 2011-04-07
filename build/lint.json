@@ -3,6 +3,7 @@
         "jasmine",
         "spyOn",
         "it",
+        "console",
         "describe",
         "expect",
         "beforeEach"
@@ -18,7 +19,7 @@
     "devel": false,
     "eqeqeq": true,
     "evil": true,
-    "forin": false,
+    "forin": true,
     "immed": true,
     "laxbreak": false,
     "newcap": true,
@@ -32,5 +33,5 @@
     "undef": true,
     "sub": true,
     "strict": false,
-    "white": false
+    "white": true
 }
