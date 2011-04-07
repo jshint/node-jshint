@@ -71,7 +71,7 @@ describe("cli", function () {
         expect(fs.readFileSync).toHaveBeenCalledWith(path.join(process.cwd(), '.jshintrc'), "utf-8");
     });
 
-    it("overrides options from the $HOME .jshintrc file with options from the cwd .jshintrc file", function() {
+    it("overrides options from the $HOME .jshintrc file with options from the cwd .jshintrc file", function () {
         var config = '{"evil": true,"predef":["Monkeys","Elephants"]}';
         fs.writeFileSync('.jshintrc', config, "utf-8");
         cli.interpret(["node", "file.js", "file.js"]);
