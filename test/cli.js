@@ -45,10 +45,11 @@ describe("cli", function () {
     });
 
     it("interprets --reporter", function () {
-        var path = "../example/reporter.js",
-            reporter = require(__dirname + "/" + path).reporter;
+        var reporter = require("./../example/reporter").reporter;
 
-        cli.interpret(["node", "file.js", "file.js", "--reporter", path]);
+        spyOn(process, "cwd").andReturn(__dirname + "/../");
+
+        cli.interpret(["node", "file.js", "file.js", "--reporter", "example/reporter.js"]);
 
         expect(hint.hint.mostRecentCall.args[2]).toEqual(reporter);
     });
