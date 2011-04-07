@@ -27,6 +27,10 @@ see example/
 
 The cli uses the default options that come with jshint, however if it locates a .jshintrc file in your home (~/) directory it will opt for that.
 
+## Per Directory Options
+
+If there is a .jshintrc file in the current working directory, it will be merged into the default options.
+
 ## Running Tests
 
     git submodule init
