@@ -45,14 +45,12 @@ describe("cli", function () {
     });
 
     it("interprets --reporter", function () {
-        var reporter = "function reporter() {}";
+        var path = "../example/reporter.js",
+            reporter = require(__dirname + "/" + path).reporter;
 
-        spyOn(fs, "readFileSync").andReturn(reporter);
+        cli.interpret(["node", "file.js", "file.js", "--reporter", path]);
 
-        cli.interpret(["node", "file.js", "file.js", "--reporter", "reporter.js"]);
-
-        expect(fs.readFileSync).toHaveBeenCalledWith("reporter.js", "utf-8");
-        expect(hint.hint.mostRecentCall.args[2].toString()).toEqual(reporter);
+        expect(hint.hint.mostRecentCall.args[2]).toEqual(reporter);
     });
 
     it("looks for a default config when no custom config is specified", function () {
@@ -76,13 +74,11 @@ describe("cli", function () {
     });
 
     it("interprets --jslint-reporter and uses the jslint xml reporter", function () {
-        var reporter = "function reporter() {}";
-        spyOn(fs, "readFileSync").andReturn(reporter);
+        var reporter = require("./../lib/jslint_reporter").reporter;
 
         cli.interpret(["node", "file.js", "file.js", "--jslint-reporter"]);
 
-        expect(fs.readFileSync.mostRecentCall.args[0]).toEqual(__dirname.replace(/test$/, '') + "lib/jslint_reporter.js");
-        expect(hint.hint.mostRecentCall.args[2].toString()).toEqual(reporter);
+        expect(hint.hint.mostRecentCall.args[2]).toEqual(reporter);
     });
 
 });
