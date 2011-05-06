@@ -1,3 +1,8 @@
+## v0.2.1 - 06/05/2011
+
+* fixed bug when either the $HOME/.jshintrc or the project specific .jshintrc is missing, neither is used
+* added the path to the executable for npm 1.0.x
+
 ## v0.2.0 - 06/04/2011
 
 * added the ability for a project specific .jshintrc file (in the current working directory)

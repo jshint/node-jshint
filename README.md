@@ -1,6 +1,6 @@
 # node-jshint
 
-A command line interface for jshint, with inspiration from nodelint (github.com/tav/nodelint).
+A command line interface and npm package for jshint.
 
 ## Install
 
