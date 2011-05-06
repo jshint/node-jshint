@@ -68,8 +68,12 @@ describe("cli", function () {
             path = require('path');
 
         spyOn(fs, "readFileSync").andReturn(JSON.stringify(config));
+        spyOn(path, "existsSync").andReturn(true);
+
         cli.interpret(["node", "file.js", "file.js"]);
-        expect(fs.readFileSync).toHaveBeenCalledWith(path.join(process.cwd(), '.jshintrc'), "utf-8");
+
+        expect(fs.readFileSync.argsForCall[0]).toEqual([path.join(process.env.HOME, '.jshintrc'), "utf-8"]);
+        expect(fs.readFileSync.argsForCall[1]).toEqual([path.join(process.cwd(), '.jshintrc'), "utf-8"]);
     });
 
     it("overrides options from the $HOME .jshintrc file with options from the cwd .jshintrc file", function () {
