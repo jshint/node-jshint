@@ -12,7 +12,7 @@
     "type": "MIT",
     "url": "http://www.opensource.org/licenses/mit-license.php"
   }],
-  "bin": { "jshint": "./bin/jshint" },
+  "bin": { "jshint": "./bin/hint" },
   "main": "packages/jshint/jshint",
   "files": [
     "packages/jshint/README.markdown",
