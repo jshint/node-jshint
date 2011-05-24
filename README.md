@@ -31,10 +31,14 @@ The cli uses the default options that come with jshint, however if it locates a 
 
 If there is a .jshintrc file in the current working directory, it will be merged into the default options.
 
-## Running Tests
+## Installing dependencies for development
 
+    npm install argparser@0.03
     git submodule init
     git submodule update
+
+
+## Running Tests
 
     npm install jasmine-node
 
