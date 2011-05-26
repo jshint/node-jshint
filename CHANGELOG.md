@@ -1,3 +1,8 @@
+## v0.2.2 - 25/05/2011
+
+* fixed a problem that occurs when predef is defined in a project file but there is no homeconfig
+* bumped JSHint to 2011-04-16
+
 ## v0.2.1 - 06/05/2011
 
 * fixed bug when either the $HOME/.jshintrc or the project specific .jshintrc is missing, neither is used
