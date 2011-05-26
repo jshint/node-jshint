@@ -18,7 +18,7 @@ You can also require JSHint itself as a module.
 
     var jshint = require('jshint');
 
-Note: If you are using a npm v1.x be sure to install jshint locally (without the -g flag) or link it globally.
+Note: If you are using npm v1.x be sure to install jshint locally (without the -g flag) or link it globally.
 
 ## Custom Reporters
 
@@ -40,13 +40,11 @@ Note: This bypasses any .jshintrc files.
 
 ## Default Options
 
-The CLI uses the default options that come with JSHint. However, if it locates a .jshintrc file in your home (~/) directory it will opt for that.
+The CLI uses the default options that come with JSHint. However, if it locates a .jshintrc file in your home directory (~/) it will use those options first.
 
 ## Per Directory Options
 
-If there is a .jshintrc file in the current working directory, any of those options will take precedence over those found in the ~/.jshintrc file (if it exists).
-
-Note: In the case there is a prefedef option in each file, the arrays will be merged.
+If there is a .jshintrc file in the current working directory, any of those options will take precedence over (or be merged with) any options found in the ~/.jshintrc file (if it exists).
 
 ## Installing dependencies for development
 
