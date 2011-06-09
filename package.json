@@ -23,5 +23,6 @@
   ],
   "dependencies": {
     "argsparser": ">=0.0.3"
-  }
+  },
+  "preferGlobal" : true
 }
