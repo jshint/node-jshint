@@ -19,7 +19,8 @@
     "packages/jshint/jshint.js",
     "README.md",
     "LICENSE",
-    "HELP"
+    "HELP",
+    "bin/hint"
   ],
   "dependencies": {
     "argsparser": ">=0.0.3"
