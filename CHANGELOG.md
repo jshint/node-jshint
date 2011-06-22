@@ -1,3 +1,9 @@
+## v0.2.3 - 22/06/2011
+
+* add bin and lib to "files" array
+* added "preferGlobal" to package.json
+* allowed comments in config files
+
 ## v0.2.2 - 25/05/2011
 
 * fixed a problem that occurs when predef is defined in a project file but there is no homeconfig

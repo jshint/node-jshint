@@ -1,6 +1,6 @@
 {
   "name": "jshint",
-  "version": "0.2.2",
+  "version": "0.2.3",
   "description": "a cli for jshint",
   "homepage": "http://github.com/jshint/node-jshint",
   "author": {
@@ -20,7 +20,8 @@
     "README.md",
     "LICENSE",
     "HELP",
-    "bin/hint"
+    "bin/hint",
+    "lib"
   ],
   "dependencies": {
     "argsparser": ">=0.0.3"
