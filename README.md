@@ -50,6 +50,10 @@ The CLI uses the default options that come with JSHint. However, if it locates a
 
 If there is a .jshintrc file in the current working directory, any of those options will take precedence over (or be merged with) any options found in the ~/.jshintrc file (if it exists).
 
+## Ignoring Files and Directories
+
+If there is a .jshintignore file in the current working directory, then any directories or files will be skipped over.
+
 ## Installing dependencies for development
 
     npm install argparser jasmine-node

@@ -135,8 +135,42 @@ describe("hint", function () {
         expect(process.exit).toHaveBeenCalledWith(1);
     });
 
+    it("ignores files", function () {
+        var targets = ["file2.js", "file1.js", "foo"],
+            ignore = ["file1.js", "foo"];
+
+        spyOn(fs, "readFileSync").andReturn("data");
+
+        spyOn(fs, "statSync").andReturn({
+            isDirectory: jasmine.createSpy().andReturn(false)
+        });
+
+        hint.hint(targets, null, null, ignore);
+
+        expect(fs.readFileSync.callCount).toBe(1);
+        expect(fs.readFileSync.mostRecentCall.args[0]).toBe("file2.js");
+    });
+
+    it("ignores directories", function () {
+        var targets = [".", "dir/file.js", "dir2/foo/file.js", "file0.js"],
+            ignore = ["dir2"];
+
+        spyOn(fs, "readFileSync").andReturn("data");
+
+        spyOn(fs, "statSync").andReturn({
+            isDirectory: jasmine.createSpy().andReturn(false)
+        });
+
+        hint.hint(targets, null, null, ignore);
+
+        expect(fs.readFileSync.callCount).toBe(2);
+        expect(fs.readFileSync.argsForCall[1][0]).toBe("file0.js");
+        expect(fs.readFileSync.argsForCall[0][0]).toBe("dir/file.js");
+        expect(fs.statSync).not.toHaveBeenCalledWith(targets[0]);
+    });
+
+    // TODO: support more robust ignore paths (ex foo/**/*.js)
     // TODO: handles jshint errors (will tighten custom reporter assertions)
     // TODO: handles file open error
     // TODO: handling of JSHINT.data()
-
 });

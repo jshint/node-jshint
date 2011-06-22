@@ -102,4 +102,22 @@ describe("cli", function () {
         cli.interpret(["node", "file.js", "file.js", "--show-non-errors"]);
         expect(hint.hint.mostRecentCall.args[2]).toEqual(reporter);
     });
+
+    it("reads in a .jshintignore file if present in current working directory", function () {
+        spyOn(path, "existsSync").andCallFake(function (path) {
+            return path.match(/\.jshintignore/) ? true : false;
+        });
+
+        spyOn(fs, "readFileSync").andCallFake(function (file) {
+            if (file.match(/\.jshintignore$/)) {
+                return "dir\nfile.js\n";
+            } else {
+                throw "not found";
+            }
+        });
+
+        cli.interpret(["node", "hint", "file.js"]);
+
+        expect(hint.hint.mostRecentCall.args[3]).toEqual(["dir", "file.js"]);
+    });
 });

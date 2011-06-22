@@ -19,7 +19,7 @@
     "devel": false,
     "eqeqeq": true,
     "evil": true,
-    "forin": true,
+    "forin": false,
     "immed": true,
     "laxbreak": false,
     "newcap": true,

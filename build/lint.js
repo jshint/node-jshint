@@ -1,5 +1,5 @@
 module.exports = function (files) {
-    var args = files && files.length > 0 ? files : ["build", "test", "lib"],
+    var args = files && files.length > 0 ? files : ["."],
         spawn = require('child_process').spawn,
         cmd = spawn("jshint", args),
         sys = require('sys');
