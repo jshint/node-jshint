@@ -152,8 +152,8 @@ describe("hint", function () {
     });
 
     it("ignores directories", function () {
-        var targets = [".", "dir/file.js", "dir2/foo/file.js", "file0.js"],
-            ignore = ["dir2"];
+        var targets = ["dir/file.js", "dir2/foo/file.js", "file0.js"],
+            ignore = ["dir2/*"];
 
         spyOn(fs, "readFileSync").andReturn("data");
 
@@ -166,7 +166,6 @@ describe("hint", function () {
         expect(fs.readFileSync.callCount).toBe(2);
         expect(fs.readFileSync.argsForCall[1][0]).toBe("file0.js");
         expect(fs.readFileSync.argsForCall[0][0]).toBe("dir/file.js");
-        expect(fs.statSync).not.toHaveBeenCalledWith(targets[0]);
     });
 
     // TODO: support more robust ignore paths (ex foo/**/*.js)

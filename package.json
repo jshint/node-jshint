@@ -24,7 +24,8 @@
     "lib"
   ],
   "dependencies": {
-    "argsparser": ">=0.0.3"
+    "argsparser": ">=0.0.3",
+    "glob": ">=2.0.7"
   },
   "preferGlobal" : true
 }
