@@ -1,0 +1,2 @@
+npm install glob argsparser jasmine-node
+git submodule update --init

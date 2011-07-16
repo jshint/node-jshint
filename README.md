@@ -54,14 +54,12 @@ If there is a .jshintrc file in the current working directory, any of those opti
 
 If there is a .jshintignore file in the current working directory, then any directories or files will be skipped over (see root directory for example).
 
-Note: Pattern matching is similar to a .gitignore file (uses FNM_PATHNAME flag)
+Note: Pattern matching uses fnmatch (with the FNM_PATHNAME & FNM_CASEFOLD flags - https://github.com/isaacs/node-glob/blob/master/README.md)
 
 ## Installing dependencies for development
 
-    npm install argparser jasmine-node
-    git submodule init
-    git submodule update
+    ./configure
 
-## Running Tests
+## Build Commands
 
-    jake test
+    jake -T
