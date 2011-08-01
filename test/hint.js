@@ -141,8 +141,12 @@ describe("hint", function () {
 
         spyOn(fs, "readFileSync").andReturn("data");
 
-        spyOn(fs, "statSync").andReturn({
-            isDirectory: jasmine.createSpy().andReturn(false)
+        spyOn(fs, "statSync").andCallFake(function (p) {
+            return {
+                isDirectory: function () {
+                    return p === "foo" ? true : false;
+                }
+            };
         });
 
         hint.hint(targets, null, null, ignore);
@@ -152,13 +156,17 @@ describe("hint", function () {
     });
 
     it("ignores directories", function () {
-        var targets = ["dir/file.js", "dir2/foo/file.js", "file0.js"],
-            ignore = ["dir2"];
+        var targets = ["dir/file.js", "dir2/foo", "file0.js"],
+            ignore = ["dir2/*"];
 
         spyOn(fs, "readFileSync").andReturn("data");
 
-        spyOn(fs, "statSync").andReturn({
-            isDirectory: jasmine.createSpy().andReturn(false)
+        spyOn(fs, "statSync").andCallFake(function (p) {
+            return {
+                isDirectory: function () {
+                    return p === "dir2/foo" ? true : false;
+                }
+            };
         });
 
         hint.hint(targets, null, null, ignore);
@@ -168,7 +176,26 @@ describe("hint", function () {
         expect(fs.readFileSync.argsForCall[0][0]).toBe("dir/file.js");
     });
 
-    // TODO: support more robust ignore paths (ex foo/**/*.js)
+    it("performs a left side match when no back slashes present and is directory", function () {
+        var targets = ["dir2.js", "dir2/foo/test.js", "dir/foo/test.js"],
+            ignore = ["dir2"];
+
+        spyOn(fs, "readFileSync").andReturn("data");
+
+        spyOn(fs, "statSync").andCallFake(function (p) {
+            return {
+                isDirectory: function () {
+                    return p === "dir2" ? true : false;
+                }
+            };
+        });
+
+        hint.hint(targets, null, null, ignore);
+
+        expect(fs.readFileSync.callCount).toBe(1);
+        expect(fs.readFileSync.argsForCall[0][0]).toBe("dir/foo/test.js");
+    });
+
     // TODO: handles jshint errors (will tighten custom reporter assertions)
     // TODO: handles file open error
     // TODO: handling of JSHINT.data()
