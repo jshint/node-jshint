@@ -32,7 +32,7 @@ Use a jslint compatible xml reporter.
 
 ## Custom Options
 
-Specify custom lint options (see example/config.json).
+Specify custom lint options (see [example/config.json](https://github.com/jshint/node-jshint/blob/master/example/config.json)).
 
     --config path/to/config.json
 
