@@ -1,8 +1,8 @@
 var sys = require('sys'),
     fs = require('fs'),
     path = require('path'),
-    cli = require('./../lib/cli'),
-    hint = require('./../lib/hint');
+    cli = require('./../../lib/cli'),
+    hint = require('./../../lib/hint');
 
 describe("cli", function () {
     beforeEach(function () {
@@ -10,14 +10,14 @@ describe("cli", function () {
     });
 
     it("interprets --help with no args", function () {
-        var txt = require('fs').readFileSync(__dirname + "/../HELP", "utf-8");
+        var txt = require('fs').readFileSync(__dirname + "/../../HELP", "utf-8");
         spyOn(sys, "print");
         cli.interpret(["node", "hint"]);
         expect(sys.print.mostRecentCall.args[0]).toEqual(txt);
     });
 
     it("interprets --help", function () {
-        var txt = require('fs').readFileSync(__dirname + "/../HELP", "utf-8");
+        var txt = require('fs').readFileSync(__dirname + "/../../HELP", "utf-8");
         spyOn(sys, "print");
         cli.interpret(["node", "hint", "file.js", "--help"]);
         expect(sys.print.mostRecentCall.args[0]).toEqual(txt);
@@ -43,9 +43,9 @@ describe("cli", function () {
     });
 
     it("interprets --reporter", function () {
-        var reporter = require("./../example/reporter").reporter;
+        var reporter = require("./../../example/reporter").reporter;
         spyOn(process, "cwd").andReturn(__dirname + "/../");
-        cli.interpret(["node", "hint", "file.js", "file.js", "--reporter", "example/reporter.js"]);
+        cli.interpret(["node", "hint", "file.js", "file.js", "--reporter", "../example/reporter.js"]);
         expect(hint.hint.mostRecentCall.args[2]).toEqual(reporter);
     });
 
@@ -92,13 +92,13 @@ describe("cli", function () {
     });
 
     it("interprets --jslint-reporter and uses the jslint xml reporter", function () {
-        var reporter = require("./../lib/reporters/jslint_xml").reporter;
+        var reporter = require("./../../lib/reporters/jslint_xml").reporter;
         cli.interpret(["node", "file.js", "file.js", "--jslint-reporter"]);
         expect(hint.hint.mostRecentCall.args[2]).toEqual(reporter);
     });
 
     it("interprets --show-non-errors and uses the non error reporter", function () {
-        var reporter = require("./../lib/reporters/non_error.js").reporter;
+        var reporter = require("./../../lib/reporters/non_error.js").reporter;
         cli.interpret(["node", "file.js", "file.js", "--show-non-errors"]);
         expect(hint.hint.mostRecentCall.args[2]).toEqual(reporter);
     });

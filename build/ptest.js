@@ -1,5 +1,7 @@
 module.exports = function () {
     var jasmine = require('jasmine-node'),
+        childProcess = require('child_process'),
+        path = require('path'),
         verbose = false,
         colored = true,
         key;
@@ -21,6 +23,13 @@ module.exports = function () {
         }
     });
 
-    jasmine.executeSpecsInFolder(__dirname + "/../test/unit/", function (runner, log) {
-    }, verbose, colored);
+    function _test() {
+        jasmine.executeSpecsInFolder(__dirname + "/../test/system/", null, verbose, colored);
+    }
+
+    if (path.existsSync(__dirname + "/../test/system/.files")) {
+        _test();
+    } else {
+        childProcess.exec(__dirname + "/../test/system/genfiles test/system/.files", _test);
+    }
 };

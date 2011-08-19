@@ -1,7 +1,7 @@
 var sys = require('sys'),
     fs = require('fs'),
-    jshint = require('./../packages/jshint/jshint.js'),
-    hint = require('./../lib/hint');
+    jshint = require('./../../packages/jshint/jshint.js'),
+    hint = require('./../../lib/hint');
 
 describe("hint", function () {
     function mockJSHINT(success, data) {
