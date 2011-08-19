@@ -96,4 +96,10 @@ describe("cli", function () {
         cli.interpret(["node", "file.js", "file.js", "--jslint-reporter"]);
         expect(hint.hint.mostRecentCall.args[2]).toEqual(reporter);
     });
+
+    it("interprets --show-non-errors and uses the non error reporter", function () {
+        var reporter = require("./../lib/reporters/non_error.js").reporter;
+        cli.interpret(["node", "file.js", "file.js", "--show-non-errors"]);
+        expect(hint.hint.mostRecentCall.args[2]).toEqual(reporter);
+    });
 });
