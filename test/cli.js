@@ -92,7 +92,7 @@ describe("cli", function () {
     });
 
     it("interprets --jslint-reporter and uses the jslint xml reporter", function () {
-        var reporter = require("./../lib/jslint_reporter").reporter;
+        var reporter = require("./../lib/reporters/jslint_xml").reporter;
         cli.interpret(["node", "file.js", "file.js", "--jslint-reporter"]);
         expect(hint.hint.mostRecentCall.args[2]).toEqual(reporter);
     });

@@ -4,6 +4,12 @@ var sys = require('sys'),
     hint = require('./../lib/hint');
 
 describe("hint", function () {
+    function mockJSHINT(success, data) {
+        spyOn(jshint, "JSHINT").andReturn(success);
+        jshint.JSHINT.data = function () {
+            return data;
+        };
+    }
 
     beforeEach(function () {
         spyOn(sys, "puts");
@@ -13,7 +19,7 @@ describe("hint", function () {
     it("collects files", function () {
         var targets = ["file1.js", "file2.js", ".hidden"];
 
-        spyOn(jshint, "JSHINT").andReturn(true);
+        mockJSHINT(true);
         spyOn(fs, "readFileSync").andReturn("data");
 
         spyOn(fs, "statSync").andReturn({
@@ -31,7 +37,7 @@ describe("hint", function () {
     it("collects directory files", function () {
         var targets = ["dir", "file2.js"];
 
-        spyOn(jshint, "JSHINT").andReturn(true);
+        mockJSHINT(true);
 
         spyOn(fs, "readFileSync").andReturn("data");
         spyOn(fs, "readdirSync").andReturn(["file2.js"]);
@@ -61,7 +67,7 @@ describe("hint", function () {
         var targets = ["file1.js"],
             config = {};
 
-        spyOn(jshint, "JSHINT").andReturn(true);
+        mockJSHINT(true);
         spyOn(fs, "readFileSync").andReturn("data");
 
         spyOn(fs, "statSync").andReturn({
@@ -78,7 +84,7 @@ describe("hint", function () {
             config = null,
             reporter = jasmine.createSpy("reporter");
 
-        spyOn(jshint, "JSHINT").andReturn(true);
+        mockJSHINT(true);
         spyOn(fs, "readFileSync").andReturn("data");
 
         spyOn(fs, "statSync").andReturn({
@@ -93,7 +99,7 @@ describe("hint", function () {
     it("exits the process with a successful status code with no lint errors", function () {
         var targets = ["file1.js"];
 
-        spyOn(jshint, "JSHINT").andReturn(true);
+        mockJSHINT(true);
         spyOn(fs, "readFileSync").andReturn("data");
 
         spyOn(fs, "statSync").andReturn({
@@ -116,7 +122,7 @@ describe("hint", function () {
                 }
             }];
 
-        spyOn(jshint, "JSHINT").andReturn(false);
+        mockJSHINT(false);
         jshint.JSHINT.errors = results;
         spyOn(fs, "readFileSync").andReturn("data");
 
@@ -131,5 +137,6 @@ describe("hint", function () {
 
     // TODO: handles jshint errors (will tighten custom reporter assertions)
     // TODO: handles file open error
+    // TODO: handling of JSHINT.data()
 
 });
