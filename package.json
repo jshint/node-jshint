@@ -1,7 +1,7 @@
 {
   "name": "jshint",
-  "version": "0.2.3",
-  "description": "a cli for jshint",
+  "version": "0.3.0",
+  "description": "A CLI for JSHint",
   "homepage": "http://github.com/jshint/node-jshint",
   "author": {
     "name": "Brent Lintner",

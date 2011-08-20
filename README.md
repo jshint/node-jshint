@@ -52,9 +52,9 @@ If there is a .jshintrc file in the current working directory, any of those opti
 
 ## Ignoring Files and Directories
 
-If there is a .jshintignore file in the current working directory, then any directories or files will be skipped over (see root directory for example).
+If there is a .jshintignore file in the current working directory, then any directories or files will be skipped over.
 
-Note: Pattern matching uses fnmatch (with the FNM_PATHNAME & FNM_CASEFOLD flags - https://github.com/isaacs/node-glob/blob/master/README.md)
+Note: Pattern matching uses fnmatch, with the FNM_PATHNAME & FNM_CASEFOLD [flags](https://github.com/isaacs/node-glob/blob/master/README.md). When there is no match, it performs a left side match (when no forward slashes present and path is a directory).
 
 ## Installing dependencies for development
 
