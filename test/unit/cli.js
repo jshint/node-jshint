@@ -1,5 +1,4 @@
-var sys = require('sys'),
-    fs = require('fs'),
+var fs = require('fs'),
     path = require('path'),
     cli = require('./../../lib/cli'),
     hint = require('./../../lib/hint');
@@ -7,20 +6,19 @@ var sys = require('sys'),
 describe("cli", function () {
     beforeEach(function () {
         spyOn(hint, "hint");
+        spyOn(process.stdout, "write");
     });
 
     it("interprets --help with no args", function () {
         var txt = require('fs').readFileSync(__dirname + "/../../HELP", "utf-8");
-        spyOn(sys, "print");
         cli.interpret(["node", "hint"]);
-        expect(sys.print.mostRecentCall.args[0]).toEqual(txt);
+        expect(process.stdout.write.mostRecentCall.args[0]).toEqual(txt);
     });
 
     it("interprets --help", function () {
         var txt = require('fs').readFileSync(__dirname + "/../../HELP", "utf-8");
-        spyOn(sys, "print");
         cli.interpret(["node", "hint", "file.js", "--help"]);
-        expect(sys.print.mostRecentCall.args[0]).toEqual(txt);
+        expect(process.stdout.write.mostRecentCall.args[0]).toEqual(txt);
     });
 
     it("interprets --config", function () {
@@ -31,7 +29,6 @@ describe("cli", function () {
             return path.match(/file\.json$/) ? true : false;
         });
         spyOn(JSON, "parse").andReturn(config);
-        spyOn(sys, "print");
 
         cli.interpret(["node", "hint", "file2.js", "file.js", "--config", "file.json"]);
 
@@ -74,21 +71,21 @@ describe("cli", function () {
     });
 
     it("overrides options from the $HOME .jshintrc file with options from the cwd .jshintrc file", function () {
-        var config = '{"evil": true,"predef":["Monkeys","Elephants"]}';
+        var config = '{"evil": true,"predef":["Monkeys","Elephants"]}',
+            oldRC = fs.readFileSync('.jshintrc', "utf-8");
         fs.writeFileSync('.jshintrc', config, "utf-8");
         cli.interpret(["node", "hint", "file.js", "file2.js"]);
         expect(hint.hint.mostRecentCall.args[1].predef).toContain("Monkeys");
         expect(hint.hint.mostRecentCall.args[1].predef).toContain("Elephants");
         expect(hint.hint.mostRecentCall.args[1].evil).toEqual(true);
-        fs.unlinkSync('.jshintrc');
+        fs.writeFileSync('.jshintrc', oldRC, "utf-8");
     });
 
     it("interprets --version and logs the current package version", function () {
         var data = {version: 1};
-        spyOn(sys, "print");
         spyOn(fs, "readFileSync").andReturn(JSON.stringify(data));
         cli.interpret(["node", "file.js", "--version"]);
-        expect(sys.print.mostRecentCall.args[0]).toEqual(data.version + "\n");
+        expect(process.stdout.write.mostRecentCall.args[0]).toEqual(data.version + "\n");
     });
 
     it("interprets --jslint-reporter and uses the jslint xml reporter", function () {

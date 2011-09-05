@@ -14,13 +14,13 @@ describe("file/directory walking performance", function () {
 
             require('child_process').exec(__dirname + "/../../bin/hint " + __dirname + "/.files", function (b) {
                 if (b) {
-                    console.log(b.message);
+                    process.stdout.write(b.message + "\n");
                     throw b;
                 }
 
                 var stamp =  new Date().getTime() - time;
 
-                console.log("Took ~" + stamp + "ms");
+                process.stdout.write("Took ~" + stamp + "ms\n");
                 expect(stamp <= 6000).toBe(true); // usually ~5s
 
                 finished = true;

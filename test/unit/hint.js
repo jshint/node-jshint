@@ -1,5 +1,4 @@
-var sys = require('sys'),
-    fs = require('fs'),
+var fs = require('fs'),
     jshint = require('./../../packages/jshint/jshint.js'),
     hint = require('./../../lib/hint');
 
@@ -12,7 +11,7 @@ describe("hint", function () {
     }
 
     beforeEach(function () {
-        spyOn(sys, "puts");
+        spyOn(process.stdout, "write");
         spyOn(process, "exit");
     });
 
@@ -108,7 +107,11 @@ describe("hint", function () {
 
         hint.hint(targets);
 
-        expect(process.exit).toHaveBeenCalledWith(0);
+        process.stdout.emit('end');
+        waits(1);
+        runs(function () {
+            expect(process.exit).toHaveBeenCalledWith(0);
+        });
     });
 
     it("exits the process with a failed status code when there are lint errors", function () {
@@ -132,7 +135,11 @@ describe("hint", function () {
 
         hint.hint(targets);
 
-        expect(process.exit).toHaveBeenCalledWith(1);
+        process.stdout.emit('end');
+        waits(1);
+        runs(function () {
+            expect(process.exit).toHaveBeenCalledWith(1);
+        });
     });
 
     it("ignores files", function () {
