@@ -1,3 +1,7 @@
+## v0.3.1 - 05/09/2011
+
+* fixed reporter logging not getting fully flushed to stdout (when process exited)
+
 ## v0.3.0 - 20/08/2011
 
 * added .jshintignore file support
