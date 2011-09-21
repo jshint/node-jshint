@@ -29,8 +29,8 @@
     "devel"         : true,   // Allow developments statements e.g. `console.log();`.
 
 
-    // EcmaScript 5.
-    "es5"           : true,   // Allow EcmaScript 5 syntax.
+    // ECMAScript 5.
+    "es5"           : true,   // Allow ECMAScript 5 syntax.
     "strict"        : false,  // Require `use strict` pragma  in every file.
     "globalstrict"  : false,  // Allow global "use strict" (also enables 'strict').
 
@@ -58,7 +58,7 @@
     "undef"         : true,   // Require all non-global variables be declared before they are used.
 
 
-    // Personal styling prefrences.
+    // Personal styling preferences.
     "newcap"        : true,   // Require capitalization of all constructor functions e.g. `new F()`.
     "noempty"       : true,   // Prohibit use of empty blocks.
     "nonew"         : true,   // Prohibit use of constructors for side-effects.
