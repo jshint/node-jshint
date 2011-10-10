@@ -20,6 +20,10 @@ You can also require JSHint itself as a module.
 
 Note: If you are using npm v1.x be sure to install jshint locally (without the -g flag) or link it globally.
 
+## Text Editor Plugins
+
+* [gedit-node-jshint](https://github.com/niftylettuce/gedit-node-jshint) - Simply use CTRL+J in gedit to run JSHint using `node-jshint`.
+
 ## Custom Reporters
 
 Specify a custom reporter module (see example/reporter.js).
