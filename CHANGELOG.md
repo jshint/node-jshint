@@ -1,3 +1,7 @@
+## v0.4.0 - 10/10/2011
+
+* updated jshint to latest
+
 ## v0.3.1 - 05/09/2011
 
 * fixed reporter logging not getting fully flushed to stdout (when process exited)
