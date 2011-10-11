@@ -23,6 +23,7 @@ Note: If you are using npm v1.x be sure to install jshint locally (without the -
 ## Text Editor Plugins
 
 * [gedit-node-jshint](https://github.com/niftylettuce/gedit-node-jshint) - Simply use CTRL+J in gedit to run JSHint using `node-jshint`.
+* [vim syntastic](https://github.com/scrooloose/syntastic) - Run node-jshint at each file save.
 
 ## Custom Reporters
 
