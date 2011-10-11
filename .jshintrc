@@ -6,7 +6,10 @@
         "console",
         "describe",
         "expect",
-        "beforeEach"
+        "beforeEach",
+        "waits",
+        "waitsFor",
+        "runs"
     ],
 
     "node" : true,
