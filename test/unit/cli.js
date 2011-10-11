@@ -48,11 +48,23 @@ describe("cli", function () {
 
     it("looks for a default config when no custom config is specified", function () {
         var config = {prefdef: []},
-            path = require('path');
+            path = require('path'),
+            home = path.join(process.env.HOME, '.jshintrc');
 
-        spyOn(fs, "readFileSync").andReturn(JSON.stringify(config));
+        spyOn(path, "existsSync").andCallFake(function (path, encoding) {
+            return path.match(home) ? true : false;
+        });
+
+        spyOn(fs, "readFileSync").andCallFake(function (path, encoding) {
+            if (path === home) {
+                return JSON.stringify(config);
+            } else {
+                throw "does not exist";
+            }
+        });
+
         cli.interpret(["node", "hint", "file.js", "file.js"]);
-        expect(fs.readFileSync).toHaveBeenCalledWith(path.join(process.env.HOME, '.jshintrc'), "utf-8");
+        expect(fs.readFileSync.argsForCall[0]).toEqual([home, "utf-8"]);
     });
 
     it("looks for a project specific config file", function () {
@@ -72,13 +84,21 @@ describe("cli", function () {
 
     it("overrides options from the $HOME .jshintrc file with options from the cwd .jshintrc file", function () {
         var config = '{"evil": true,"predef":["Monkeys","Elephants"]}',
-            oldRC = fs.readFileSync('.jshintrc', "utf-8");
-        fs.writeFileSync('.jshintrc', config, "utf-8");
+            old_readFileSync = fs.readFileSync;
+
+        spyOn(fs, "readFileSync").andCallFake(function (file, data, encoding) {
+            if (file.match(path.resolve(".jshintrc"))) {
+                return config;
+            } else {
+                return old_readFileSync(file, data, encoding);
+            }
+        });
+
         cli.interpret(["node", "hint", "file.js", "file2.js"]);
+
         expect(hint.hint.mostRecentCall.args[1].predef).toContain("Monkeys");
         expect(hint.hint.mostRecentCall.args[1].predef).toContain("Elephants");
         expect(hint.hint.mostRecentCall.args[1].evil).toEqual(true);
-        fs.writeFileSync('.jshintrc', oldRC, "utf-8");
     });
 
     it("interprets --version and logs the current package version", function () {
