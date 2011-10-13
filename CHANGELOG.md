@@ -1,3 +1,7 @@
+## v0.5.0 - 12/10/2011
+
+* support node 0.5.x (use minimatch package instead of glob)
+
 ## v0.4.0 - 10/10/2011
 
 * updated jshint to latest
