@@ -1,3 +1,7 @@
+## v0.5.1 - 15/10/2011
+
+* fixed process.exit calls being ignored in reporters (and always returning 0)
+
 ## v0.5.0 - 12/10/2011
 
 * support node 0.5.x (use minimatch package instead of glob)
