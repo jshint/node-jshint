@@ -5,7 +5,12 @@ var fs = require('fs'),
 
 describe("cli", function () {
     beforeEach(function () {
-        spyOn(hint, "hint");
+        if (!process.stdout.flush) {
+            process.stdout.flush = function () {};
+        }
+
+        spyOn(process, "exit");
+        spyOn(hint, "hint").andReturn([]);
         spyOn(process.stdout, "write");
     });
 
@@ -136,5 +141,45 @@ describe("cli", function () {
         cli.interpret(["node", "hint", "file.js"]);
 
         expect(hint.hint.mostRecentCall.args[3]).toEqual(["dir", "file.js"]);
+    });
+
+    it("exits the process with a successful status code with no lint errors", function () {
+        var results = [];
+
+        hint.hint.reset();
+        hint.hint.andReturn(results);
+        spyOn(process.stdout, "flush").andReturn(true);
+
+        cli.interpret(["node", "hint", "file.js"]);
+
+        expect(process.exit).toHaveBeenCalledWith(0);
+    });
+
+    it("exits the process with a failed status code when there are lint errors", function () {
+        var results = [{}, {}];
+
+        hint.hint.reset();
+        hint.hint.andReturn(results);
+        spyOn(process.stdout, "flush").andReturn(true);
+
+        cli.interpret(["node", "hint", "file.js"]);
+
+        expect(process.exit).toHaveBeenCalledWith(1);
+    });
+
+    it("listens for sdtout drain event if not flushed", function () {
+        var results = [{}, {}];
+
+        hint.hint.reset();
+        hint.hint.andReturn(results);
+        spyOn(process.stdout, "flush").andReturn(false);
+        spyOn(process.stdout, "on").andCallFake(function (name, func) {
+            func();
+        });
+
+        cli.interpret(["node", "hint", "file.js"]);
+
+        expect(process.stdout.on.argsForCall[0][0]).toBe("drain");
+        expect(process.exit).toHaveBeenCalledWith(1);
     });
 });

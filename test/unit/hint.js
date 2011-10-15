@@ -15,6 +15,18 @@ describe("hint", function () {
         spyOn(process, "exit");
     });
 
+    it("returns an array of results", function () {
+        var targets = ["file1.js"];
+
+        mockJSHINT(true);
+        spyOn(fs, "readFileSync").andReturn("data");
+        spyOn(fs, "statSync").andReturn({
+            isDirectory: jasmine.createSpy().andReturn(false)
+        });
+
+        expect(hint.hint(targets)).toEqual([]);
+    });
+
     it("collects files", function () {
         var targets = ["file1.js", "file2.js", ".hidden"];
 
@@ -93,53 +105,6 @@ describe("hint", function () {
         hint.hint(targets, config, reporter);
 
         expect(reporter).toHaveBeenCalled();
-    });
-
-    it("exits the process with a successful status code with no lint errors", function () {
-        var targets = ["file1.js"];
-
-        mockJSHINT(true);
-        spyOn(fs, "readFileSync").andReturn("data");
-
-        spyOn(fs, "statSync").andReturn({
-            isDirectory: jasmine.createSpy().andReturn(false)
-        });
-
-        hint.hint(targets);
-
-        process.stdout.emit('end');
-        waits(1);
-        runs(function () {
-            expect(process.exit).toHaveBeenCalledWith(0);
-        });
-    });
-
-    it("exits the process with a failed status code when there are lint errors", function () {
-        var targets = ["file1.js"],
-            results = [{
-                file: "file1.js",
-                error: {
-                    line: "1",
-                    reason: "",
-                    character: "4"
-                }
-            }];
-
-        mockJSHINT(false);
-        jshint.JSHINT.errors = results;
-        spyOn(fs, "readFileSync").andReturn("data");
-
-        spyOn(fs, "statSync").andReturn({
-            isDirectory: jasmine.createSpy().andReturn(false)
-        });
-
-        hint.hint(targets);
-
-        process.stdout.emit('end');
-        waits(1);
-        runs(function () {
-            expect(process.exit).toHaveBeenCalledWith(1);
-        });
     });
 
     it("ignores files", function () {
