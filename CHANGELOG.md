@@ -1,3 +1,8 @@
+## v0.5.2 - 27/10/2011
+
+* allow for Unicode Byte Order Mark in analyzed files
+* stop printing "Lint Free!" when no errors are found
+
 ## v0.5.1 - 15/10/2011
 
 * fixed process.exit calls being ignored in reporters (and always returning 0)
