@@ -1,3 +1,7 @@
+## v0.5.3 - 06/12/2011
+
+* fixed breakage on Windows (i.e process.argv[0] differs)
+
 ## v0.5.2 - 27/10/2011
 
 * allow for Unicode Byte Order Mark in analyzed files
