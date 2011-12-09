@@ -1,3 +1,7 @@
+## v0.5.4 - 09/12/2011
+
+* fix .jshintignore support on Windows (remove trailing `\r`) - [Issue #55](https://github.com/jshint/node-jshint/issues/55)
+
 ## v0.5.3 - 06/12/2011
 
 * fixed breakage on Windows (i.e process.argv[0] differs)
