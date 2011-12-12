@@ -1,3 +1,7 @@
+## v0.5.5 - 12/12/2011
+
+* bump JSHint to latest (SHA ~> 3585b1eae9b7d218b27cca183d0788bb661a7572)
+
 ## v0.5.4 - 09/12/2011
 
 * fix .jshintignore support on Windows (remove trailing `\r`) - [Issue #55](https://github.com/jshint/node-jshint/issues/55)
