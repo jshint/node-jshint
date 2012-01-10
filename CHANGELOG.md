@@ -1,3 +1,7 @@
+## v0.5.6 - 10/01/2012
+
+* bump JSHint to r04
+
 ## v0.5.5 - 12/12/2011
 
 * bump JSHint to latest (SHA ~> 3585b1eae9b7d218b27cca183d0788bb661a7572)
