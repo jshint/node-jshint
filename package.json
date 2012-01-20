@@ -1,6 +1,6 @@
 {
   "name": "jshint",
-  "version": "0.5.6",
+  "version": "0.5.7",
   "description": "A CLI for JSHint",
   "homepage": "http://github.com/jshint/node-jshint",
   "author": {

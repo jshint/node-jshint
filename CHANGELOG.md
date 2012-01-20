@@ -1,3 +1,7 @@
+## v0.5.7 - 19/01/2012
+
+* bump JSHint to r05
+
 ## v0.5.6 - 10/01/2012
 
 * bump JSHint to r04
