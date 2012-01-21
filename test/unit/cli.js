@@ -142,6 +142,28 @@ describe("cli", function () {
 
         expect(hint.hint.mostRecentCall.args[3]).toEqual(["dir", "file.js"]);
     });
+    
+    it("reads in a default .jshintignore file in $HOME if none present in current working directory", function () {
+        var ignore = "dir\nfile.js\n",
+            path = require('path'),
+            home = path.join(process.env.HOME, '.jshintignore');
+
+        spyOn(path, "existsSync").andCallFake(function (path, encoding) {
+            return path.match(home) ? true : false;
+        });
+
+        spyOn(fs, "readFileSync").andCallFake(function (path, encoding) {
+            if (path === home) {
+                return ignore;
+            } else {
+                throw "does not exist";
+            }
+        });
+
+        cli.interpret(["node", "hint", "file.js"]);
+
+        expect(hint.hint.mostRecentCall.args[3]).toEqual(["dir", "file.js"]);
+    });
 
     it("exits the process with a successful status code with no lint errors", function () {
         var results = [];
