@@ -182,4 +182,10 @@ describe("cli", function () {
         expect(process.stdout.on.argsForCall[0][0]).toBe("drain");
         expect(process.exit).toHaveBeenCalledWith(1);
     });
+
+    it("reads input from stdin if `-` is given as a file path", function () {
+        cli.interpret(["node", "hint", "-"]);
+
+        expect(hint.hint.mostRecentCall.args[0]).toContain("/dev/stdin");
+    });
 });

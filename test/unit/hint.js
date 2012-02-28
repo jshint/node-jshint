@@ -168,6 +168,14 @@ describe("hint", function () {
         expect(fs.readFileSync.argsForCall[0][0]).toBe("dir/foo/test.js");
     });
 
+    it("reads input from stdin", function() {
+        spyOn(fs, "readFileSync").andReturn("data");
+
+        hint.hint(["/dev/stdin"]);
+
+        expect(fs.readFileSync).toHaveBeenCalledWith("/dev/stdin", "utf-8");
+    });
+
     // TODO: handles jshint errors (will tighten custom reporter assertions)
     // TODO: handles file open error
     // TODO: handling of JSHINT.data()
