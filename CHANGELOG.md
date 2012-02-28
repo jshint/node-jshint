@@ -1,3 +1,9 @@
+## v0.5.9 - 28/02/2012
+
+* support using fs.existsSync instead of path.existsSync (if deprecated)
+* fixed a typo in example config.json
+* added sublime-jshint editor link to README
+
 ## v0.5.8 - 13/02/2012
 
 * bump JSHint to r06
