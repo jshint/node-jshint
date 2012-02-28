@@ -4,7 +4,7 @@ A command line interface and npm package for jshint.
 
 ## Install
 
-To use jshint from any location (for npm v1.x) you need to install using the global (-g) flag. 
+To use jshint from any location (for npm v1.x) you need to install using the global (-g) flag.
 
     npm install -g jshint
 
@@ -24,6 +24,7 @@ Note: If you are using npm v1.x be sure to install jshint locally (without the -
 
 * [gedit-node-jshint](https://github.com/niftylettuce/gedit-node-jshint) - Simply use CTRL+J in gedit to run JSHint using `node-jshint`.
 * [vim syntastic](https://github.com/scrooloose/syntastic) - Run node-jshint at each file save.
+* [sublime-jshint](https://github.com/uipoet/sublime-jshint) - `F7` or `command-B` on any .js file. `F4` next error line,column. `shift-F4` previous error line,column.
 
 ## Custom Reporters
 
