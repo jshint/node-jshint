@@ -143,26 +143,24 @@ describe("cli", function () {
         expect(hint.hint.mostRecentCall.args[3]).toEqual(["dir", "file.js"]);
     });
     
-    it("reads in a default .jshintignore file in $HOME if none present in current working directory", function () {
-        var ignore = "dir\nfile.js\n",
-            path = require('path'),
-            home = path.join(process.env.HOME, '.jshintignore');
+    it("merges options from the $HOME .jshintignore file with options from the cwd .jshintignore file", function () {
+        var defaultIgnorePath = path.join(process.env.HOME, '.jshintignore');
+            projectIgnorePath = path.join(process.cwd, '.jshintignore');
+            old_readFileSync = fs.readFileSync;
 
-        spyOn(path, "existsSync").andCallFake(function (path, encoding) {
-            return path.match(home) ? true : false;
-        });
-
-        spyOn(fs, "readFileSync").andCallFake(function (path, encoding) {
-            if (path === home) {
-                return ignore;
+        spyOn(fs, "readFileSync").andCallFake(function (file, data, encoding) {
+            if (file.match(path.resolve(defaultIgnorePath))) {
+                return "log\ndir\nfile.js\n"
+            } else if (file.match(path.resolve(projectIgnorePath))) {
+                return "~*\ndir\nfile.js\nsome_other_dir"
             } else {
-                throw "does not exist";
+                return old_readFileSync(file, data, encoding);
             }
         });
 
-        cli.interpret(["node", "hint", "file.js"]);
+        cli.interpret(["node", "hint", "app.js"]);
 
-        expect(hint.hint.mostRecentCall.args[3]).toEqual(["dir", "file.js"]);
+        expect(hint.hint.mostRecentCall.args[3]).toEqual(["log", "~*", "dir", "file.js", "some_other_dir"]);
     });
 
     it("exits the process with a successful status code with no lint errors", function () {
