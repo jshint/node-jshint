@@ -144,15 +144,15 @@ describe("cli", function () {
     });
     
     it("merges options from the $HOME .jshintignore file with options from the cwd .jshintignore file", function () {
-        var defaultIgnorePath = path.join(process.env.HOME, '.jshintignore');
-            projectIgnorePath = path.join(process.cwd, '.jshintignore');
+        var defaultIgnorePath = path.join(process.env.HOME, '.jshintignore'),
+            projectIgnorePath = path.join(process.cwd, '.jshintignore'),
             old_readFileSync = fs.readFileSync;
 
         spyOn(fs, "readFileSync").andCallFake(function (file, data, encoding) {
             if (file.match(path.resolve(defaultIgnorePath))) {
-                return "log\ndir\nfile.js\n"
+                return "log\ndir\nfile.js\n";
             } else if (file.match(path.resolve(projectIgnorePath))) {
-                return "~*\ndir\nfile.js\nsome_other_dir"
+                return "~*\ndir\nfile.js\nsome_other_dir";
             } else {
                 return old_readFileSync(file, data, encoding);
             }
@@ -160,7 +160,7 @@ describe("cli", function () {
 
         cli.interpret(["node", "hint", "app.js"]);
 
-        expect(hint.hint.mostRecentCall.args[3]).toEqual(["log", "~*", "dir", "file.js", "some_other_dir"]);
+        expect(hint.hint.mostRecentCall.args[3].sort()).toEqual(["some_other_dir", "log", "dir", "file.js", "~*"].sort());
     });
 
     it("exits the process with a successful status code with no lint errors", function () {
