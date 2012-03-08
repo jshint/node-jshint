@@ -1,7 +1,8 @@
 module.exports = function (files) {
     var args = files && files.length > 0 ? files : ["."],
-        spawn = require('child_process').spawn,
-        cmd = spawn("jshint", args.concat(["--show-non-errors"]));
+        exec = require('child_process').exec,
+        opts = args.concat(["--config .jshintrc", "--show-non-errors"]).join(' '),
+        cmd = exec("jshint " + opts);
 
     function write(data) {
         process.stdout.write(new Buffer(data).toString("utf-8"));
