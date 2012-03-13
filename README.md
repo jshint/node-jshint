@@ -48,6 +48,12 @@ Specify custom lint options (see [example/config.json](https://github.com/jshint
 
 Note: This bypasses any .jshintrc files.
 
+## File Extensions
+
+Default extension for files is ".js". If you want to use JSHint with other file extensions (.json), you need to pass this extra extension as an option
+
+    --extra-ext .json
+
 ## Default Options
 
 The CLI uses the default options that come with JSHint. However, if it locates a .jshintrc file in your home directory (~/) it will use those options first.
