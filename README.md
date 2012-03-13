@@ -60,6 +60,12 @@ This setup allows you to set up **one** configuration file for your entire proje
 
 If all the methods above do not yield a `.jshintrc` to use, the last place that will be checked is your user's `$HOME` directory.
 
+## File Extensions
+
+Default extension for files is ".js". If you want to use JSHint with other file extensions (.json), you need to pass this extra extension as an option :
+
+    --extra-ext .json
+
 ## Ignoring Files and Directories
 
 If there is a .jshintignore file in your project's directory tree, (also provided you run `jshint` from within your project's directory true) then any directories or files specified will be skipped over. (behaves just like a `.gitignore` file)

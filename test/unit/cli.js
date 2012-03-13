@@ -109,6 +109,16 @@ describe("cli", function () {
         expect(hint.hint.mostRecentCall.args[2]).toEqual(reporter);
     });
 
+    it("interprets --extra-ext with no extension list and only uses the .js extension", function () {
+        cli.interpret(["node", "hint", "file.js", "file1.js", "--extra-ext"]);
+        expect(hint.hint.mostRecentCall.args[4]).toEqual("");
+    });
+
+    it("interprets --extra-ext with .json in extension list and uses the .js and .json extensions", function () {
+        cli.interpret(["node", "file.js", "file.js", "--extra-ext", ".json"]);
+        expect(hint.hint.mostRecentCall.args[4]).toEqual(".json");
+    });
+
     describe('when searching for a .jshintignore file', function () {
         // TODO: fully test walking up the directory chain
 
