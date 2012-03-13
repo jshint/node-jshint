@@ -28,7 +28,7 @@ describe("hint", function () {
     });
 
     it("collects files", function () {
-        var targets = ["file1.js", "file2.js", ".hidden"];
+        var targets = ["file1.js", "file2.js", "file3.json", ".hidden"];
 
         mockJSHINT(true);
         spyOn(fs, "readFileSync").andReturn("data");
@@ -39,8 +39,9 @@ describe("hint", function () {
 
         hint.hint(targets);
 
-        expect(fs.readFileSync.callCount).toEqual(2);
-        expect(fs.readFileSync).not.toHaveBeenCalledWith(targets[2], "utf-8");
+        expect(fs.readFileSync.callCount).toEqual(3);
+        expect(fs.readFileSync).not.toHaveBeenCalledWith(targets[3], "utf-8");
+        expect(fs.readFileSync).toHaveBeenCalledWith(targets[2], "utf-8");
         expect(fs.readFileSync).toHaveBeenCalledWith(targets[0], "utf-8");
         expect(fs.readFileSync).toHaveBeenCalledWith(targets[1], "utf-8");
     });
