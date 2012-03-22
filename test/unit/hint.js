@@ -28,7 +28,7 @@ describe("hint", function () {
     });
 
     it("collects files", function () {
-        var targets = ["file1.js", "file2.js", "file3.json", ".hidden"];
+        var targets = ["file1.js", "file2.js", ".hidden", "file4.json"];
 
         mockJSHINT(true);
         spyOn(fs, "readFileSync").andReturn("data");
@@ -39,11 +39,30 @@ describe("hint", function () {
 
         hint.hint(targets);
 
-        expect(fs.readFileSync.callCount).toEqual(3);
+        expect(fs.readFileSync.callCount).toEqual(2);
+        expect(fs.readFileSync).not.toHaveBeenCalledWith(targets[2], "utf-8");
         expect(fs.readFileSync).not.toHaveBeenCalledWith(targets[3], "utf-8");
-        expect(fs.readFileSync).toHaveBeenCalledWith(targets[2], "utf-8");
         expect(fs.readFileSync).toHaveBeenCalledWith(targets[0], "utf-8");
         expect(fs.readFileSync).toHaveBeenCalledWith(targets[1], "utf-8");
+    });
+
+    it("collects files with other extensions", function () {
+        var targets = ["file1.js", ".hidden", "file4.json"];
+        var extraExt = ".json";
+
+        mockJSHINT(true);
+        spyOn(fs, "readFileSync").andReturn("data");
+
+        spyOn(fs, "statSync").andReturn({
+            isDirectory: jasmine.createSpy().andReturn(false)
+        });
+
+        hint.hint(targets, null, null, false, extraExt);
+
+        expect(fs.readFileSync.callCount).toEqual(2);
+        expect(fs.readFileSync).toHaveBeenCalledWith(targets[2], "utf-8");
+        expect(fs.readFileSync).not.toHaveBeenCalledWith(targets[1], "utf-8");
+        expect(fs.readFileSync).toHaveBeenCalledWith(targets[0], "utf-8");
     });
 
     it("collects directory files", function () {
