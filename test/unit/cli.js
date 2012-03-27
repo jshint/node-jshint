@@ -182,4 +182,23 @@ describe("cli", function () {
         expect(process.stdout.on.argsForCall[0][0]).toBe("drain");
         expect(process.exit).toHaveBeenCalledWith(1);
     });
+
+    it("adds *.json to ignore list when --ignore-json specified.", function () {
+        cli.interpret(["node", "hint", "file.js", "--ignore-json"]);
+        expect(hint.hint.mostRecentCall.args[3]).toContain("*.json");
+
+        cli.interpret(["node", "hint", "file.js"]);
+        expect(hint.hint.mostRecentCall.args[3]).toNotContain("*.json");
+    });
+
+    it("adds *.json to ignore list when --ignore-json is specified " +
+        "and there's no .jshintignore file.", function () {
+
+        spyOn(path, "existsSync").andCallFake(function (p) {
+            return p.match(/\.jshintignore/) ? false : false;
+        });
+
+        cli.interpret(["node", "hint", "file.js", "--ignore-json"]);
+        expect(hint.hint.mostRecentCall.args[3]).toEqual(["*.json"]);
+    });
 });
