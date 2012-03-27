@@ -62,6 +62,10 @@ If there is a .jshintignore file in the current working directory, then any dire
 
 Note: Pattern matching uses minimatch, with the nocase [option](https://github.com/isaacs/minimatch). When there is no match, it performs a left side match (when no forward slashes present and path is a directory).
 
+### Ignore json files.
+
+    --ignore-json
+
 ## Installing dependencies for development
 
     ./configure
