@@ -50,7 +50,7 @@ Note: This bypasses any .jshintrc files.
 
 ## File Extensions
 
-Default extension for files is ".js". If you want to use JSHint with other file extensions (.json), you need to pass this extra extension as an option
+Default extension for files is ".js". If you want to use JSHint with other file extensions (.json), you need to pass this extra extension as an option :
 
     --extra-ext .json
 
