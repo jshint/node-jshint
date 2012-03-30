@@ -1,5 +1,5 @@
 desc('run tests');
-task('test', [], require('./build/test'));
+task('test', [], require('./tasks/test'));
 
 desc('lint code');
-task('lint', [], require('./build/lint'));
+task('lint', [], require('./tasks/lint'));
