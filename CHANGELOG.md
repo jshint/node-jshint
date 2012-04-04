@@ -1,3 +1,7 @@
+## v0.6.0 - 04/04/2012
+
+* Changed the lookup process for .jshintrc/.jshintignore files to start with the cwd, traverse up filesystem and fall back on HOME, if available. (see 'Configuration Options' in README)
+
 ## v0.5.9 - 28/02/2012
 
 * support using fs.existsSync instead of path.existsSync (if deprecated)
