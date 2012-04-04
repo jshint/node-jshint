@@ -24,8 +24,8 @@
     "lib"
   ],
   "dependencies": {
-    "argsparser": ">=0.0.3",
-    "minimatch": ">=0.0.4"
+    "argsparser": "0.0.x",
+    "minimatch": "0.0.x"
   },
   "devDependencies": {
     "jasmine-node": "1.0.7"
