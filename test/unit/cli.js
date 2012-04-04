@@ -51,59 +51,43 @@ describe("cli", function () {
         expect(hint.hint.mostRecentCall.args[2]).toEqual(reporter);
     });
 
-    it("looks for a default config when no custom config is specified", function () {
-        var config = {prefdef: []},
-            path = require('path'),
-            home = path.join(process.env.HOME, '.jshintrc');
+    describe('when searching for a .jshintrc file (no custom config specified)', function () {
+        // TODO: fully test walking up the directory chain
 
-        spyOn(path, "existsSync").andCallFake(function (path, encoding) {
-            return path.match(home) ? true : false;
+        it("looks for the file in the current working directory", function () {
+            var config = {prefdef: []},
+                path = require('path');
+
+            spyOn(fs, "readFileSync").andReturn(JSON.stringify(config));
+            spyOn(path, "existsSync").andCallFake(function (path) {
+                return path.match(/\.jshintrc/) ? true : false;
+            });
+
+            cli.interpret(["node", "hint", "file.js", "file2.js"]);
+
+            expect(fs.readFileSync.argsForCall[0]).toEqual([path.join(process.cwd(), '.jshintrc'), "utf-8"]);
         });
 
-        spyOn(fs, "readFileSync").andCallFake(function (path, encoding) {
-            if (path === home) {
-                return JSON.stringify(config);
-            } else {
-                throw "does not exist";
-            }
+        it("looks for the file in $HOME as a last resort", function () {
+            var config = {prefdef: []},
+                path = require('path'),
+                home = path.join(process.env.HOME, '.jshintrc');
+
+            spyOn(path, "existsSync").andCallFake(function (path, encoding) {
+                return path.match(home) ? true : false;
+            });
+
+            spyOn(fs, "readFileSync").andCallFake(function (path, encoding) {
+                if (path === home) {
+                    return JSON.stringify(config);
+                } else {
+                    throw "does not exist";
+                }
+            });
+
+            cli.interpret(["node", "hint", "file.js", "file.js"]);
+            expect(fs.readFileSync.argsForCall[0]).toEqual([home, "utf-8"]);
         });
-
-        cli.interpret(["node", "hint", "file.js", "file.js"]);
-        expect(fs.readFileSync.argsForCall[0]).toEqual([home, "utf-8"]);
-    });
-
-    it("looks for a project specific config file", function () {
-        var config = {prefdef: []},
-            path = require('path');
-
-        spyOn(fs, "readFileSync").andReturn(JSON.stringify(config));
-        spyOn(path, "existsSync").andCallFake(function (path) {
-            return path.match(/\.jshintrc/) ? true : false;
-        });
-
-        cli.interpret(["node", "hint", "file.js", "file2.js"]);
-
-        expect(fs.readFileSync.argsForCall[0]).toEqual([path.join(process.env.HOME, '.jshintrc'), "utf-8"]);
-        expect(fs.readFileSync.argsForCall[1]).toEqual([path.join(process.cwd(), '.jshintrc'), "utf-8"]);
-    });
-
-    it("overrides options from the $HOME .jshintrc file with options from the cwd .jshintrc file", function () {
-        var config = '{"evil": true,"predef":["Monkeys","Elephants"]}',
-            old_readFileSync = fs.readFileSync;
-
-        spyOn(fs, "readFileSync").andCallFake(function (file, data, encoding) {
-            if (file.match(path.resolve(".jshintrc"))) {
-                return config;
-            } else {
-                return old_readFileSync(file, data, encoding);
-            }
-        });
-
-        cli.interpret(["node", "hint", "file.js", "file2.js"]);
-
-        expect(hint.hint.mostRecentCall.args[1].predef).toContain("Monkeys");
-        expect(hint.hint.mostRecentCall.args[1].predef).toContain("Elephants");
-        expect(hint.hint.mostRecentCall.args[1].evil).toEqual(true);
     });
 
     it("interprets --version and logs the current package version", function () {
@@ -125,22 +109,50 @@ describe("cli", function () {
         expect(hint.hint.mostRecentCall.args[2]).toEqual(reporter);
     });
 
-    it("reads in a .jshintignore file if present in current working directory", function () {
-        spyOn(path, "existsSync").andCallFake(function (path) {
-            return path.match(/\.jshintignore/) ? true : false;
+    describe('when searching for a .jshintignore file', function () {
+        // TODO: fully test walking up the directory chain
+
+        it("reads in the file if present in current working directory", function () {
+            spyOn(path, "existsSync").andCallFake(function (path) {
+                return path.match(/\.jshintignore/) ? true : false;
+            });
+
+            spyOn(fs, "readFileSync").andCallFake(function (file) {
+                if (file.match(/\.jshintignore$/)) {
+                    return "dir\nfile.js\n";
+                } else {
+                    throw "not found";
+                }
+            });
+
+            cli.interpret(["node", "hint", "file.js"]);
+
+            expect(hint.hint.mostRecentCall.args[3])
+                .toEqual([path.join(process.cwd(), "dir"),
+                         path.join(process.cwd(), "file.js")]);
         });
 
-        spyOn(fs, "readFileSync").andCallFake(function (file) {
-            if (file.match(/\.jshintignore$/)) {
-                return "dir\nfile.js\n";
-            } else {
-                throw "not found";
-            }
+        it("reads in the file from $HOME as a last resort", function () {
+            var home = path.join(process.env.HOME, '.jshintignore');
+
+            spyOn(path, "existsSync").andCallFake(function (path) {
+                return path.match(home) ? true : false;
+            });
+
+            spyOn(fs, "readFileSync").andCallFake(function (file) {
+                if (file.match(home)) {
+                    return "dir\nfile.js\n";
+                } else {
+                    throw "not found";
+                }
+            });
+
+            cli.interpret(["node", "hint", "file.js"]);
+
+            expect(hint.hint.mostRecentCall.args[3])
+                .toEqual([path.join(process.env.HOME, "dir"),
+                         path.join(process.env.HOME, "file.js")]);
         });
-
-        cli.interpret(["node", "hint", "file.js"]);
-
-        expect(hint.hint.mostRecentCall.args[3]).toEqual(["dir", "file.js"]);
     });
 
     it("exits the process with a successful status code with no lint errors", function () {
