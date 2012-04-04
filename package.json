@@ -28,7 +28,7 @@
     "minimatch": "0.0.x"
   },
   "devDependencies": {
-    "jasmine-node": "1.0.7"
+    "jasmine-node": "1.0.x"
   },
   "preferGlobal" : true
 }
