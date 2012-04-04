@@ -73,3 +73,8 @@ If there is a .jshintignore file in your project's directory tree, (also provide
 ## Build Commands
 
     jake -T
+
+## Project Guidelines
+
+* All tests are passing.
+* No (new) JSHint errors are introduced.
