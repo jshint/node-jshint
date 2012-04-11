@@ -1,3 +1,7 @@
+## v0.6.1 - 11/04/2012
+
+* Fixed infinite recursion while searching for .jshintrc on Windows - [#100](https://github.com/jshint/node-jshint/issues/100)
+
 ## v0.6.0 - 04/04/2012
 
 * Changed the lookup process for .jshintrc/.jshintignore files to start with the cwd, traverse up filesystem and fall back on HOME, if available. (see 'Configuration Options' in README)
