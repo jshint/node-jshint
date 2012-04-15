@@ -47,8 +47,7 @@ describe("hint", function () {
     });
 
     it("collects files with other extensions", function () {
-        var targets = ["file1.js", ".hidden", "file4.json"];
-        var extraExt = ".json";
+        var targets = ["file1.js", ".hidden", "file4.json"], extraExt = ".json";
 
         mockJSHINT(true);
         spyOn(fs, "readFileSync").andReturn("data");
