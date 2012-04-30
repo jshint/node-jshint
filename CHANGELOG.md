@@ -1,3 +1,7 @@
+## v0.6.2 - 30/04/2012
+
+* Added support for extra file extensions with the `--extra-ext` option.
+
 ## v0.6.1 - 11/04/2012
 
 * Fixed infinite recursion while searching for .jshintrc on Windows - [#100](https://github.com/jshint/node-jshint/issues/100)
