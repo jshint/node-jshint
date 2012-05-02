@@ -1,3 +1,7 @@
+## v0.6.3 - 01/05/2012
+
+* Bumped JSHint to r07
+
 ## v0.6.2 - 30/04/2012
 
 * Added support for extra file extensions with the `--extra-ext` option.
