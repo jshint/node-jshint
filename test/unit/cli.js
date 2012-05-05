@@ -8,22 +8,44 @@ describe("cli", function () {
         if (!process.stdout.flush) {
             process.stdout.flush = function () {};
         }
-
-        spyOn(process, "exit");
+        spyOn(process, "exit").andCallFake(function () {
+            throw "ProcessExit";
+        });
         spyOn(hint, "hint").andReturn([]);
         spyOn(process.stdout, "write");
     });
 
     it("interprets --help with no args", function () {
-        var txt = require('fs').readFileSync(__dirname + "/../../HELP", "utf-8");
-        cli.interpret(["node", "hint"]);
-        expect(process.stdout.write.mostRecentCall.args[0]).toEqual(txt);
+        var txt = require('fs').readFileSync(__dirname + "/../../HELP", "utf-8"),
+            got = [],
+            i = 0;
+
+        spyOn(console, "error");
+        try {
+            cli.interpret(["node", "hint"]);
+        } catch (err) { if (err !== "ProcessExit") throw err; }
+
+        for (i = 0; i < console.error.calls.length; i++)
+            got.push(console.error.calls[i].args[0]);
+
+        //require('fs').writeFileSync(__dirname + "/../../HELP", got.join("\n"), "utf-8");
+        expect(got.join("\n")).toEqual(txt);
     });
 
     it("interprets --help", function () {
-        var txt = require('fs').readFileSync(__dirname + "/../../HELP", "utf-8");
-        cli.interpret(["node", "hint", "file.js", "--help"]);
-        expect(process.stdout.write.mostRecentCall.args[0]).toEqual(txt);
+        var txt = require('fs').readFileSync(__dirname + "/../../HELP", "utf-8"),
+            got = [],
+            i = 0;
+
+        spyOn(console, "error");
+        try {
+            cli.interpret(["node", "hint", "file.js", "--help"]);
+        } catch (err) { if (err !== "ProcessExit") throw err; }
+
+        for (i = 0; i < console.error.calls.length; i++)
+            got.push(console.error.calls[i].args[0]);
+
+        expect(got.join("\n")).toEqual(txt);
     });
 
     it("interprets --config", function () {
@@ -35,7 +57,9 @@ describe("cli", function () {
         });
         spyOn(JSON, "parse").andReturn(config);
 
-        cli.interpret(["node", "hint", "file2.js", "file.js", "--config", "file.json"]);
+        try {
+            cli.interpret(["node", "hint", "file2.js", "file.js", "--config", "file.json"]);
+        } catch (err) { if (err !== "ProcessExit") throw err; }
 
         expect(fs.readFileSync).toHaveBeenCalledWith("file.json", "utf-8");
         expect(JSON.parse).toHaveBeenCalledWith("data");
@@ -47,7 +71,9 @@ describe("cli", function () {
     it("interprets --reporter", function () {
         var reporter = require("./../../example/reporter").reporter;
         spyOn(process, "cwd").andReturn(__dirname + "/../");
-        cli.interpret(["node", "hint", "file.js", "file.js", "--reporter", "../example/reporter.js"]);
+        try {
+            cli.interpret(["node", "hint", "file.js", "file.js", "--reporter", "../example/reporter.js"]);
+        } catch (err) { if (err !== "ProcessExit") throw err; }
         expect(hint.hint.mostRecentCall.args[2]).toEqual(reporter);
     });
 
@@ -63,7 +89,9 @@ describe("cli", function () {
                 return path.match(/\.jshintrc/) ? true : false;
             });
 
-            cli.interpret(["node", "hint", "file.js", "file2.js"]);
+            try {
+                cli.interpret(["node", "hint", "file.js", "file2.js"]);
+            } catch (err) { if (err !== "ProcessExit") throw err; }
 
             expect(fs.readFileSync.argsForCall[0]).toEqual([path.join(process.cwd(), '.jshintrc'), "utf-8"]);
         });
@@ -85,27 +113,35 @@ describe("cli", function () {
                 }
             });
 
-            cli.interpret(["node", "hint", "file.js", "file.js"]);
+            try {
+                cli.interpret(["node", "hint", "file.js", "file.js"]);
+            } catch (err) { if (err !== "ProcessExit") throw err; }
             expect(fs.readFileSync.argsForCall[0]).toEqual([home, "utf-8"]);
         });
     });
 
     it("interprets --version and logs the current package version", function () {
-        var data = {version: 1};
+        var data = {"name": "jshint", "version": "0.6.4"};
         spyOn(fs, "readFileSync").andReturn(JSON.stringify(data));
-        cli.interpret(["node", "file.js", "--version"]);
+        try {
+            cli.interpret(["node", "file.js", "--version"]);
+        } catch (err) { if (err !== "ProcessExit") throw err; }
         expect(process.stdout.write.mostRecentCall.args[0]).toEqual(data.version + "\n");
     });
 
     it("interprets --jslint-reporter and uses the jslint xml reporter", function () {
         var reporter = require("./../../lib/reporters/jslint_xml").reporter;
-        cli.interpret(["node", "file.js", "file.js", "--jslint-reporter"]);
+        try {
+            cli.interpret(["node", "file.js", "file.js", "--jslint-reporter"]);
+        } catch (err) { if (err !== "ProcessExit") throw err; }
         expect(hint.hint.mostRecentCall.args[2]).toEqual(reporter);
     });
 
     it("interprets --show-non-errors and uses the non error reporter", function () {
         var reporter = require("./../../lib/reporters/non_error.js").reporter;
-        cli.interpret(["node", "file.js", "file.js", "--show-non-errors"]);
+        try {
+            cli.interpret(["node", "file.js", "file.js", "--show-non-errors"]);
+        } catch (err) { if (err !== "ProcessExit") throw err; }
         expect(hint.hint.mostRecentCall.args[2]).toEqual(reporter);
     });
 
@@ -135,7 +171,9 @@ describe("cli", function () {
                 }
             });
 
-            cli.interpret(["node", "hint", "file.js"]);
+            try {
+                cli.interpret(["node", "hint", "file.js"]);
+            } catch (err) { if (err !== "ProcessExit") throw err; }
 
             expect(hint.hint.mostRecentCall.args[3])
                 .toEqual([path.join(process.cwd(), "dir"),
@@ -157,7 +195,9 @@ describe("cli", function () {
                 }
             });
 
-            cli.interpret(["node", "hint", "file.js"]);
+            try {
+                cli.interpret(["node", "hint", "file.js"]);
+            } catch (err) { if (err !== "ProcessExit") throw err; }
 
             expect(hint.hint.mostRecentCall.args[3])
                 .toEqual([path.join(process.env.HOME, "dir"),
@@ -172,7 +212,9 @@ describe("cli", function () {
         hint.hint.andReturn(results);
         spyOn(process.stdout, "flush").andReturn(true);
 
-        cli.interpret(["node", "hint", "file.js"]);
+        try {
+            cli.interpret(["node", "hint", "file.js"]);
+        } catch (err) { if (err !== "ProcessExit") throw err; }
 
         expect(process.exit).toHaveBeenCalledWith(0);
     });
@@ -184,7 +226,9 @@ describe("cli", function () {
         hint.hint.andReturn(results);
         spyOn(process.stdout, "flush").andReturn(true);
 
-        cli.interpret(["node", "hint", "file.js"]);
+        try {
+            cli.interpret(["node", "hint", "file.js"]);
+        } catch (err) { if (err !== "ProcessExit") throw err; }
 
         expect(process.exit).toHaveBeenCalledWith(1);
     });
@@ -199,7 +243,9 @@ describe("cli", function () {
             func();
         });
 
-        cli.interpret(["node", "hint", "file.js"]);
+        try {
+            cli.interpret(["node", "hint", "file.js"]);
+        } catch (err) { if (err !== "ProcessExit") throw err; }
 
         expect(process.stdout.on.argsForCall[0][0]).toBe("drain");
         expect(process.exit).toHaveBeenCalledWith(1);

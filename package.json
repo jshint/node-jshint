@@ -24,7 +24,7 @@
     "lib"
   ],
   "dependencies": {
-    "argsparser": "0.0.x",
+    "cli": "0.4.3",
     "minimatch": "0.0.x"
   },
   "devDependencies": {
