@@ -10,9 +10,7 @@ To use jshint from any location (for npm v1.x) you need to install using the glo
 
 ## Usage
 
-The command line interface looks like this.
-
-    jshint path path2 [options]
+    jshint -h
 
 You can also require JSHint itself as a module.
 
@@ -68,7 +66,7 @@ Default extension for files is ".js". If you want to use JSHint with other file 
 
 ## Ignoring Files and Directories
 
-If there is a .jshintignore file in your project's directory tree, (also provided you run `jshint` from within your project's directory true) then any directories or files specified will be skipped over. (behaves just like a `.gitignore` file)
+If there is a .jshintignore file in your project's directory tree, (also provided you run `jshint` from within your project's directory) then any directories or files specified will be skipped over. (behaves just like a `.gitignore` file)
 
 **Note:** Pattern matching uses minimatch, with the nocase [option](https://github.com/isaacs/minimatch). When there is no match, it performs a left side match (when no forward slashes present and path is a directory).
 

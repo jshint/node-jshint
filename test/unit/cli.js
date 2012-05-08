@@ -15,39 +15,6 @@ describe("cli", function () {
         spyOn(process.stdout, "write");
     });
 
-    it("interprets --help with no args", function () {
-        var txt = require('fs').readFileSync(__dirname + "/../../HELP", "utf-8"),
-            got = [],
-            i = 0;
-
-        spyOn(console, "error");
-        try {
-            cli.interpret(["node", "hint"]);
-        } catch (err) { if (err !== "ProcessExit") throw err; }
-
-        for (i = 0; i < console.error.calls.length; i++)
-            got.push(console.error.calls[i].args[0]);
-
-        //require('fs').writeFileSync(__dirname + "/../../HELP", got.join("\n"), "utf-8");
-        expect(got.join("\n")).toEqual(txt);
-    });
-
-    it("interprets --help", function () {
-        var txt = require('fs').readFileSync(__dirname + "/../../HELP", "utf-8"),
-            got = [],
-            i = 0;
-
-        spyOn(console, "error");
-        try {
-            cli.interpret(["node", "hint", "file.js", "--help"]);
-        } catch (err) { if (err !== "ProcessExit") throw err; }
-
-        for (i = 0; i < console.error.calls.length; i++)
-            got.push(console.error.calls[i].args[0]);
-
-        expect(got.join("\n")).toEqual(txt);
-    });
-
     it("interprets --config", function () {
         var config = {};
 
