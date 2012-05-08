@@ -1,3 +1,10 @@
+## v0.7.0 - 08/05/2012
+
+* Replaced `argsparser` with `cli` (for a more robust and flexible CLI).
+* Added `-v` option (same as `--version`).
+* Added `-h` option (same as `--help`).
+* Avoid infinite recursion when CWD is outside of `/` on Windows.
+
 ## v0.6.3 - 01/05/2012
 
 * Bumped JSHint to r07
