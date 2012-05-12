@@ -20,7 +20,7 @@
     "README.md",
     "LICENSE",
     "bin/hint",
-    "lib"
+    "lib/**/*.js"
   ],
   "dependencies": {
     "cli": "0.4.3",
