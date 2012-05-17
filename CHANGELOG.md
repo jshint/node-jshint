@@ -1,3 +1,7 @@
+## v0.7.1 - 17/05/2012
+
+* Fix config file `/* */` comment removal when there is more than one per file (see https://github.com/jshint/node-jshint/pull/112).
+
 ## v0.7.0 - 08/05/2012
 
 * Replaced `argsparser` with `cli` (for a more robust and flexible CLI).
