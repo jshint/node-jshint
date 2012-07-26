@@ -1,3 +1,7 @@
+## v0.7.2 - 26/07/2012
+
+* Bumped JSHint to r08
+
 ## v0.7.1 - 17/05/2012
 
 * Fix config file `/* */` comment removal when there is more than one per file (see https://github.com/jshint/node-jshint/pull/112).
