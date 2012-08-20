@@ -1,3 +1,7 @@
+## v0.8.0 - 20/08/2012
+
+* Bumped JSHint to r10
+
 ## v0.7.3 - 05/08/2012
 
 * Bumped JSHint to r09
