@@ -1,3 +1,7 @@
+## v0.8.1 - 27/08/2012
+
+* Added a `--checkstyle-reporter` [option](https://github.com/jshint/node-jshint/pull/118).
+
 ## v0.8.0 - 20/08/2012
 
 * Bumped JSHint to r10
