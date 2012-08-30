@@ -68,11 +68,11 @@ describe("cli", function () {
                 path = require('path'),
                 home = path.join(process.env.HOME, '.jshintrc');
 
-            spyOn(path, "existsSync").andCallFake(function (path, encoding) {
+            spyOn(path, "existsSync").andCallFake(function (path) {
                 return path.match(home) ? true : false;
             });
 
-            spyOn(fs, "readFileSync").andCallFake(function (path, encoding) {
+            spyOn(fs, "readFileSync").andCallFake(function (path) {
                 if (path === home) {
                     return JSON.stringify(config);
                 } else {

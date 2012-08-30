@@ -21,6 +21,5 @@ module.exports = function () {
         }
     });
 
-    jasmine.executeSpecsInFolder(__dirname + "/../test/unit/", function (runner, log) {
-    }, verbose, colored);
+    jasmine.executeSpecsInFolder(__dirname + "/../test/unit/", null, verbose, colored);
 };
