@@ -1,5 +1,4 @@
-
-// Defaults as of jshint edition 2011-04-16
+// This might not up to date. See http://www.jshint.com/docs/
 
 {
     // Whether the scan should stop on first error.
@@ -31,8 +30,8 @@
     "dojo": false,
 
     // Custom predefined globals.
-    "predef": [],
-
+    // For value examples, see https://github.com/jshint/jshint/blob/c047ea1b01097fcc220fcd1a55c41f67ae2e6e81/jshint.js#L556
+    "globals":  {},
 
     // Development
 
