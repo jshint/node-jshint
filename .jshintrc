@@ -1,16 +1,16 @@
 {
-    "predef": [
-        "jasmine",
-        "spyOn",
-        "it",
-        "console",
-        "describe",
-        "expect",
-        "beforeEach",
-        "waits",
-        "waitsFor",
-        "runs"
-    ],
+    "globals": {
+        "jasmine": false,
+        "spyOn": false,
+        "it": false,
+        "console": false,
+        "describe": false,
+        "expect": false,
+        "beforeEach": false,
+        "waits": false,
+        "waitsFor": false,
+        "runs": false
+    },
 
     "node" : true,
     "es5" : true,
