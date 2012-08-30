@@ -36,5 +36,6 @@
     "undef": true,
     "sub": true,
     "strict": false,
-    "white": true
+    "white": true,
+    "unused": true
 }
