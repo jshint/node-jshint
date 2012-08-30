@@ -1,3 +1,7 @@
+## v0.8.2 - 30/08/2012
+
+* Added a `globals` config option (which supercedes the `predef` option). It is passed to `JSHINT(..)` as the 3rd argument. See README.md for more details.
+
 ## v0.8.1 - 27/08/2012
 
 * Added a `--checkstyle-reporter` [option](https://github.com/jshint/node-jshint/pull/118).
