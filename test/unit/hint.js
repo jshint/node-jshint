@@ -106,7 +106,7 @@ describe("hint", function () {
 
         hint.hint(targets, config);
 
-        expect(jshint.JSHINT).toHaveBeenCalledWith("data", config);
+        expect(jshint.JSHINT).toHaveBeenCalledWith("data", config, undefined);
     });
 
     it("uses custom reporter", function () {
