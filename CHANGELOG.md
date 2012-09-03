@@ -1,3 +1,7 @@
+## v0.9.0 - 03/09/2012
+
+* Bumped JSHint to r11
+
 ## v0.8.2 - 30/08/2012
 
 * Added a `globals` config option (which supercedes the `predef` option). It is passed to `JSHINT(..)` as the 3rd argument. See README.md for more details.
