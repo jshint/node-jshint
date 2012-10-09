@@ -24,6 +24,7 @@ Note: If you are using npm v1.x be sure to install jshint locally (without the -
 * [vim syntastic](https://github.com/scrooloose/syntastic) - Run node-jshint at each file save.
 * [sublime-jshint](https://github.com/uipoet/sublime-jshint) - `F7` or `command-B` on any .js file. `F4` next error line,column. `shift-F4` previous error line,column.
 * [eclipse-jshint](http://github.eclipsesource.com/jshint-eclipse/) -  Run node-jshint at each file save.
+
 ## Custom Reporters
 
 Specify a custom reporter module (see example/reporter.js).
