@@ -72,7 +72,7 @@
     "evil": false,
     // Whether ExpressionStatement should be allowed as Programs.
     "expr": false,
-    // Whether `for in` loops must filter with `hasOwnPrototype`.
+    // Whether `for in` loops must filter with `hasOwnProperty`.
     "forin": false,
     // Whether immediate invocations must be wrapped in parens, e.g.
     // `( function(){}() );`.
